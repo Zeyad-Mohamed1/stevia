@@ -1,0 +1,56 @@
+// Language-specific font families
+
+// Default fonts for English content
+:lang(en) {
+  font-family: "Kumbh Sans", "Inter Tight", "Instrument Sans",
+    "Plus Jakarta Sans", "DM Sans", "Barlow Condensed", sans-serif;
+}
+
+// Arabic fonts
+:lang(ar) {
+  font-family: "Cairo", "Tajawal", sans-serif;
+}
+
+// RTL specific adjustments
+[dir="rtl"] {
+  // Add any RTL-specific font adjustments here if needed
+  text-align: right;
+
+  // Adjust some direction-specific elements
+  .icon-arrow-right::before {
+    transform: rotate(180deg);
+    display: inline-block;
+  }
+
+  .icon-arrow-left::before {
+    transform: rotate(180deg);
+    display: inline-block;
+  }
+}
+
+// Ensure correct font weight rendering for Arabic fonts
+:lang(ar) {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Cairo", "Tajawal", sans-serif;
+    font-weight: 700;
+  }
+
+  p,
+  span,
+  div,
+  a {
+    font-family: "Cairo", "Tajawal", sans-serif;
+    font-weight: 400;
+  }
+
+  button,
+  .btn {
+    font-family: "Cairo", "Tajawal", sans-serif;
+    font-weight: 500;
+  }
+}

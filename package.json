@@ -1,0 +1,32 @@
+{
+  "name": "modave-next",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emailjs/browser": "^4.4.1",
+    "@tanstack/react-query": "^5.79.0",
+    "axios": "^1.9.0",
+    "bootstrap": "^5.3.6",
+    "drift-zoom": "^1.5.1",
+    "next": "15.1.6",
+    "next-intl": "^4.1.0",
+    "photoswipe": "^5.4.4",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "react-hot-toast": "^2.5.2",
+    "react-range-slider-input": "^3.2.1",
+    "sass": "^1.89.0",
+    "swiper": "^11.2.8",
+    "zustand": "^5.0.5"
+  },
+  "devDependencies": {
+    "eslint": "^9",
+    "eslint-config-next": "15.3.3"
+  }
+}
