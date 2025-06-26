@@ -1,43 +1,38 @@
+import BannerTab2 from "@/components/common/BannerTab2";
+import Categories from "@/components/common/Categories";
 import Features from "@/components/common/Features";
-import ShopGram from "@/components/common/ShopGram";
-import Testimonials from "@/components/common/Testimonials";
+import MarqueeSection2 from "@/components/common/MarqueeSection2";
+import Products5 from "@/components/products/Products5";
+
+import ShopGram4 from "@/components/common/ShopGram4";
+import Testimonials2 from "@/components/otherPages/Testimonials2";
 import Footer1 from "@/components/footers/Footer1";
 import Header1 from "@/components/headers/Header1";
-import Banner from "@/components/homes/eleganceNest/Banner";
-import Categories from "@/components/homes/eleganceNest/Categories";
-import Collections from "@/components/homes/eleganceNest/Collections";
-import Hero from "@/components/homes/eleganceNest/Hero";
-import Products from "@/components/common/Products4";
-import Products2 from "@/components/common/Products2";
+import Banner from "@/components/homes/cosmetic/Banner";
+import Collections from "@/components/homes/cosmetic/Collections";
+import Hero from "@/components/homes/cosmetic/Hero";
 import React from "react";
-import CartTogglerSide from "@/components/common/CartTogglerSide";
-import MarqueeSection2 from "@/components/common/MarqueeSection2";
-import { setRequestLocale } from "next-intl/server";
 
 export const metadata = {
-  title:
-    "Home Fashion Elegancenest || Stevia - Multipurpose React Nextjs eCommerce Template",
-  description: "Stevia - Multipurpose React Nextjs eCommerce Template",
+  title: "Home Stevia",
+  description: "Home Stevia",
 };
 
-export default async function HomeFashionElegentNestPage({ params }) {
-  const { locale } = await params;
-  setRequestLocale(locale);
+export default function HomeCosmeticPage() {
   return (
     <>
       <Header1 />
       <Hero />
       <MarqueeSection2 />
-      <Categories />
-      <Products />
-      {/* <Collections /> */}
-      {/* <Products2 parentClass="flat-spacing pt-0" /> */}
+      <Collections />
+      {/* <Categories parentClass="" /> */}
+      <Products5 />
       <Banner />
-      <Features />
-      <Testimonials parentClass="" />
-      <ShopGram parentClass="flat-spacing" />
+      <BannerTab2 parentClass="flat-spacing" />
+      <Testimonials2 />
+      <Features parentClass="flat-spacing line-top-container" />
+      <ShopGram4 />
       <Footer1 />
-      <CartTogglerSide />
     </>
   );
 }

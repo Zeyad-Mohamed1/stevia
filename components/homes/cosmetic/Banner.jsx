@@ -1,5 +1,10 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
+import { useLocale } from "next-intl";
+import { useQuery } from "@tanstack/react-query";
+import { getSlider } from "@/actions/slider";
 export default function Banner() {
   return (
     <section

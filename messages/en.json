@@ -151,7 +151,10 @@
     "viewAll": "View All Collection",
     "loading": "Loading categories...",
     "error": "Failed to load categories. Please try again later.",
-    "noCategories": "No categories available at the moment."
+    "noCategories": "No categories available at the moment.",
+    "shop_by_skin_concern": "Shop by Skin Concern",
+    "fresh_styles_subtitle": "Fresh styles just in! Elevate your look.",
+    "error_loading_categories": "Failed to load categories. Please try again later."
   },
   "shopgram": {
     "title": "Shop Instagram",

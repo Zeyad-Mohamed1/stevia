@@ -1,17 +1,72 @@
 "use client";
 
-import { product10 } from "@/data/products";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { useQuery } from "@tanstack/react-query";
+import { getImages } from "@/actions/main";
+
 export default function ShopGram4() {
+  const t = useTranslations("shopgram");
+  const {
+    data: images,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["images"],
+    queryFn: () => getImages(),
+  });
+
+  if (isLoading) {
+    return (
+      <section>
+        <div className="heading-section text-center wow fadeInUp">
+          <h3 className="heading">{t("title")}</h3>
+          <p className="subheading text-secondary">{t("subtitle")}</p>
+        </div>
+        <div className="text-center py-5">
+          <div className="spinner-border" role="status">
+            <span className="visually-hidden">{t("loading")}</span>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error || !images) {
+    return (
+      <section>
+        <div className="heading-section text-center wow fadeInUp">
+          <h3 className="heading">{t("title")}</h3>
+          <p className="subheading text-secondary">{t("subtitle")}</p>
+        </div>
+        <div className="text-center py-5">
+          <p className="text-muted">{t("error")}</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (images.length === 0) {
+    return (
+      <section>
+        <div className="heading-section text-center wow fadeInUp">
+          <h3 className="heading">{t("title")}</h3>
+          <p className="subheading text-secondary">{t("subtitle")}</p>
+        </div>
+        <div className="text-center py-5">
+          <p className="text-muted">{t("noImages")}</p>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section>
       <div className="heading-section text-center wow fadeInUp">
-        <h3 className="heading">Shop Instagram</h3>
-        <p className="subheading text-secondary">
-          Elevate your wardrobe with fresh finds today!
-        </p>
+        <h3 className="heading">{t("title")}</h3>
+        <p className="subheading text-secondary">{t("subtitle")}</p>
       </div>
 
       <Swiper
@@ -33,29 +88,29 @@ export default function ShopGram4() {
         dir="ltr"
         className="swiper tf-sw-shop-gallery"
       >
-        {product10.map((item, index) => (
-          <SwiperSlide key={index}>
+        {images.map((item, index) => (
+          <SwiperSlide key={item.id}>
             <div
               className="gallery-item rounded-0 hover-overlay hover-img wow fadeInUp"
-              data-wow-delay={item.delay}
+              data-wow-delay={`${(index + 1) * 0.1}s`}
             >
               <div className="img-style">
                 <Image
                   className="lazyload img-hover"
-                  data-src={item.imgSrc}
-                  alt={item.alt}
-                  src={item.imgSrc}
+                  data-src={item.image_path}
+                  alt={`Instagram image ${item.id}`}
+                  src={item.image_path}
                   width={480}
                   height={480}
                 />
               </div>
-              <Link
+              {/* <Link
                 href={`/product-detail/${item.id}`}
                 className="box-icon hover-tooltip"
               >
                 <span className="icon icon-eye"></span>
                 <span className="tooltip">View Product</span>
-              </Link>
+              </Link> */}
             </div>
           </SwiperSlide>
         ))}
