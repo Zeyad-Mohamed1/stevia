@@ -11,3 +11,8 @@ export async function getSlidersNews() {
   const response = await get("/sliders-news");
   return response;
 }
+
+export async function getSlidersCategories() {
+  const response = await get("/sliders-categories");
+  return response;
+}

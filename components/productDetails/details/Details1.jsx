@@ -310,14 +310,6 @@ export default function Details1({ product, locale = "en" }) {
                               }-${normalizedSize || "default"}`,
                             };
 
-                            console.log("Adding to cart:", {
-                              product: productForCart,
-                              selectedColor: finalColor,
-                              selectedSize: finalSize,
-                              normalizedColor,
-                              normalizedSize,
-                            });
-
                             addProductToCart(
                               productForCart,
                               quantity,

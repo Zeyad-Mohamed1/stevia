@@ -99,7 +99,7 @@ export default function Collections() {
                   href={`/collections/${category.id}-${category.name}`}
                   className="cls-btn"
                 >
-                  <h6 className="text">{category.name}</h6>
+                  <h6 className="text-custom">{category.name}</h6>
                 </Link>
               </div>
             </div>

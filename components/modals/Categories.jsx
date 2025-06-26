@@ -1,13 +1,14 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { getCategories } from "@/actions/categories";
 import { useQuery } from "@tanstack/react-query";
 import { useLocale } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 
 export default function Categories() {
   const locale = useLocale();
+  const router = useRouter();
   const {
     data: categories,
     isLoading,
@@ -16,6 +17,33 @@ export default function Categories() {
     queryKey: ["categories"],
     queryFn: () => getCategories(),
   });
+
+  const handleCategoryClick = (category) => {
+    // Close the modal first
+    const modal = document.getElementById("shopCategories");
+    if (modal) {
+      // Use the data-bs-dismiss approach which is more reliable
+      modal.classList.remove("show");
+      modal.setAttribute("aria-hidden", "true");
+      modal.style.display = "none";
+
+      // Remove backdrop
+      const backdrop = document.querySelector(".offcanvas-backdrop");
+      if (backdrop) {
+        backdrop.remove();
+      }
+
+      // Remove modal-open class from body
+      document.body.classList.remove("offcanvas-open");
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
+    }
+
+    // Navigate after a small delay to ensure modal is closed
+    setTimeout(() => {
+      router.push(`/collections/${category?.id}-${category?.name}`);
+    }, 100);
+  };
 
   return (
     <div
@@ -50,27 +78,25 @@ export default function Categories() {
           {categories && categories.length > 0
             ? categories.map((category) => (
                 <div key={category.id} className="wd-facet-categories">
-                  <div className="facet-title">
-                    <Link
-                      href={`/collections/${category?.id}-${category?.name}`}
-                      className="item link d-flex align-items-center"
-                      data-bs-dismiss="offcanvas"
-                    >
-                      <Image
-                        className="avt"
-                        alt={category.title || category.name}
-                        src={
-                          category.logo_path ||
-                          category.image ||
-                          "/images/avatar/default.jpg"
-                        }
-                        width={48}
-                        height={48}
-                      />
-                      <span className="title">
-                        {category.title || category.name}
-                      </span>
-                    </Link>
+                  <div
+                    className="facet-title item link d-flex align-items-center w-100"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleCategoryClick(category)}
+                  >
+                    <Image
+                      className="avt"
+                      alt={category.title || category.name}
+                      src={
+                        category.logo_path ||
+                        category.image ||
+                        "/images/avatar/default.jpg"
+                      }
+                      width={48}
+                      height={48}
+                    />
+                    <span className="title">
+                      {category.title || category.name}
+                    </span>
                   </div>
                   {/* <div className="collapse show">
                     <ul className="facet-body">

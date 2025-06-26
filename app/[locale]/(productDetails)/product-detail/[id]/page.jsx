@@ -9,9 +9,8 @@ import RelatedProducts from "@/components/productDetails/RelatedProducts";
 import React from "react";
 
 export const metadata = {
-  title:
-    "Product Detail || Stevia - Multipurpose React Nextjs eCommerce Template",
-  description: "Stevia - Multipurpose React Nextjs eCommerce Template",
+  title: "Product Detail || Stevia",
+  description: "Stevia",
 };
 
 // Helper function to get translated content
