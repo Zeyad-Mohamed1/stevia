@@ -16,3 +16,8 @@ export async function getSlidersCategories() {
   const response = await get("/sliders-categories");
   return response;
 }
+
+export async function getSlidersProducts() {
+  const response = await get("/product-section");
+  return response;
+}

@@ -5,9 +5,25 @@ import Link from "next/link";
 import { useContextElement } from "@/context/Context";
 import { products37 } from "@/data/products";
 import { useLocale } from "next-intl";
+import { getSlidersProducts } from "@/actions/slider";
+import { useQuery } from "@tanstack/react-query";
+
 export default function BannerTab2({ parentClass = "flat-spacing pt-0" }) {
+  const { data } = useQuery({
+    queryKey: ["products37"],
+    queryFn: getSlidersProducts,
+  });
   const { setQuickViewItem } = useContextElement();
   const locale = useLocale();
+
+  // Use API data if available, fallback to static data
+  const bannerData = data || {
+    title: "Ready to Glow?",
+    content: "",
+    items: products37,
+  };
+  console.log(bannerData);
+  const displayItems = bannerData.items || products37;
   useEffect(() => {
     const offsetX = 20;
     const offsetY = 20;
@@ -59,32 +75,29 @@ export default function BannerTab2({ parentClass = "flat-spacing pt-0" }) {
             <div className="banner-left">
               <div className="box-title wow fadeInUp">
                 <h3>
-                  Ready to Glow?
+                  {bannerData.title}
                   <br className="d-none d-lg-block" />
-                  It Cosmetics
                 </h3>
-                <p>
-                  Bestow a flush of blush and a radiance boost in one step with
-                  the NEW Glow With Confidence Sun Blush - a balm infused with
-                  hyaluronic acid, vitamin E and peptides
-                </p>
+                <p>{bannerData.content}</p>
               </div>
               <ul className="tab-banner" role="tablist">
-                {products37.map((item) => (
+                {displayItems.map((item, index) => (
                   <li
                     key={item.id}
                     className={`nav-tab-item wow fadeInUp`}
-                    data-wow-delay={item.delay}
+                    data-wow-delay={item.delay || `${index * 0.1}s`}
                     role="presentation"
                   >
                     <a
                       href={`#tabBannerCls${item.id}`}
                       className={`nav-tab-link hover-cursor-img ${
-                        item.active ? "active" : ""
+                        item.active || index === 0 ? "active" : ""
                       }`}
                       data-bs-toggle="tab"
                     >
-                      <h5 className="title text-line-clamp-1">{item.title}</h5>
+                      <h5 className="title text-line-clamp-1">
+                        {item.title || item.name || `Product ${item.id}`}
+                      </h5>
                       <div className="arr-link">
                         <span className="text-btn-uppercase text-more">
                           More
@@ -94,7 +107,11 @@ export default function BannerTab2({ parentClass = "flat-spacing pt-0" }) {
                       <div className="hover-image">
                         <Image
                           alt="Hover Image"
-                          src={item.imgSrc}
+                          src={
+                            item.image_path ||
+                            item.image ||
+                            "/images/products/default.jpg"
+                          }
                           width={710}
                           height={945}
                         />
@@ -113,10 +130,12 @@ export default function BannerTab2({ parentClass = "flat-spacing pt-0" }) {
           <div className="col-lg-5 col-md-6">
             <div className="banner-right flat-animate-tab">
               <div className="tab-content">
-                {products37.map((item) => (
+                {displayItems.map((item, index) => (
                   <div
                     key={item.id}
-                    className={`tab-pane ${item.active ? "active show" : ""}`}
+                    className={`tab-pane ${
+                      item.active || index === 0 ? "active show" : ""
+                    }`}
                     id={`tabBannerCls${item.id}`}
                     role="tabpanel"
                   >
@@ -124,45 +143,59 @@ export default function BannerTab2({ parentClass = "flat-spacing pt-0" }) {
                       <a className="img-style">
                         <Image
                           className="lazyload"
-                          data-src={item.imgSrc}
+                          data-src={
+                            item?.image_path ||
+                            item?.image ||
+                            "/images/products/default.jpg"
+                          }
                           alt="banner-cls"
-                          src={item.imgSrc}
+                          src={
+                            item?.image_path ||
+                            item?.image ||
+                            "/images/products/default.jpg"
+                          }
                           width={710}
                           height={945}
                         />
-                        <div className="on-sale-wrap">
-                          <span className="on-sale-item">-25%</span>
-                        </div>
+                        {item?.discount && (
+                          <div className="on-sale-wrap">
+                            <span className="on-sale-item">
+                              {item.discount}%
+                            </span>
+                          </div>
+                        )}
                       </a>
                       <div className="content cls-content">
                         <div className="cls-info">
                           <Link
-                            href={`/product-detail/${item.id}`}
+                            href={`/product-detail/${item?.id}`}
                             className="text-title link text-line-clamp-1"
                           >
-                            {item.title}
+                            {item?.title || item?.name || `Product ${item?.id}`}
                           </Link>
                           <div className="price">
-                            <span className="old-price">
-                              {locale === "ar"
-                                ? `ج.م ${item.oldPrice.toFixed(2)}`
-                                : `EGP ${item.oldPrice.toFixed(2)}`}
-                            </span>
+                            {item?.oldPrice && (
+                              <span className="old-price">
+                                {locale === "ar"
+                                  ? `ج.م ${item.oldPrice.toFixed(2)}`
+                                  : `EGP ${item.oldPrice.toFixed(2)}`}
+                              </span>
+                            )}
                             <span className="new-price">
                               {locale === "ar"
-                                ? `ج.م ${item.price.toFixed(2)}`
-                                : `EGP ${item.price.toFixed(2)}`}
+                                ? `ج.م ${item?.price?.toFixed(2)}`
+                                : `EGP ${item?.price?.toFixed(2)}`}
                             </span>
                           </div>
                         </div>
-                        <a
+                        {/* <a
                           href="#quickView"
                           onClick={() => setQuickViewItem(item)}
                           data-bs-toggle="modal"
                           className="cls-btn text-btn-uppercase"
                         >
                           Quick View
-                        </a>
+                        </a> */}
                       </div>
                     </div>
                   </div>

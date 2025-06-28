@@ -62,7 +62,7 @@
   },
   "products": {
     "topPicksTitle": "Today's Top Picks",
-    "topPicksSubtitle": "Fresh styles just in! Elevate your look.",
+    "topPicksSubtitle": "Your health is our priority.",
     "loading": "Loading...",
     "loadingProducts": "Loading products...",
     "errorTitle": "Failed to load products. Please try again later.",
@@ -152,13 +152,13 @@
     "loading": "Loading categories...",
     "error": "Failed to load categories. Please try again later.",
     "noCategories": "No categories available at the moment.",
-    "shop_by_skin_concern": "Shop by Skin Concern",
-    "fresh_styles_subtitle": "Fresh styles just in! Elevate your look.",
+    "shop_by_skin_concern": "Product Categories",
+    "fresh_styles_subtitle": "Select the Product That Suits You Best.",
     "error_loading_categories": "Failed to load categories. Please try again later."
   },
   "shopgram": {
-    "title": "Shop Instagram",
-    "subtitle": "Elevate your wardrobe with fresh finds today!",
+    "title": "Our Latest Posts",
+    "subtitle": "Stevia products for better health.",
     "loading": "Loading gallery...",
     "error": "Failed to load gallery. Please try again later.",
     "noImages": "No images available at the moment.",

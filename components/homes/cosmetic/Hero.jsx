@@ -88,7 +88,9 @@ export default function Hero() {
                         href={`/shop`}
                         className="tf-btn btn-fill btn-square btn-white"
                       >
-                        <span className="text">Shop Now</span>
+                        <span className="text">
+                          {locale === "ar" ? "تسوق الآن" : "Shop Now"}
+                        </span>
                       </Link>
                     </div>
                   </div>

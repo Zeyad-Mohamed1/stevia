@@ -1,14 +1,14 @@
 // Language-specific font families
 
-// Default fonts for English content
+// English fonts - Using Nunito Sans as primary font (Sunset Gothic alternative)
 :lang(en) {
-  font-family: "Kumbh Sans", "Inter Tight", "Instrument Sans",
-    "Plus Jakarta Sans", "DM Sans", "Barlow Condensed", sans-serif;
+  font-family: "Nunito Sans", "Inter", "Segoe UI", "Roboto", "Helvetica Neue",
+    sans-serif;
 }
 
-// Arabic fonts
+// Arabic fonts - Using Alexandria as primary font
 :lang(ar) {
-  font-family: "Cairo", "Tajawal", sans-serif;
+  font-family: "Alexandria", "Cairo", "Tajawal", "Amiri", sans-serif;
 }
 
 // RTL specific adjustments
@@ -36,7 +36,7 @@
   h4,
   h5,
   h6 {
-    font-family: "Cairo", "Tajawal", sans-serif;
+    font-family: "Alexandria", "Cairo", "Tajawal", "Amiri", sans-serif;
     font-weight: 700;
   }
 
@@ -44,13 +44,43 @@
   span,
   div,
   a {
-    font-family: "Cairo", "Tajawal", sans-serif;
+    font-family: "Alexandria", "Cairo", "Tajawal", "Amiri", sans-serif;
     font-weight: 400;
   }
 
   button,
   .btn {
-    font-family: "Cairo", "Tajawal", sans-serif;
+    font-family: "Alexandria", "Cairo", "Tajawal", "Amiri", sans-serif;
     font-weight: 500;
+  }
+}
+
+// Ensure correct font weight rendering for English fonts
+:lang(en) {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Nunito Sans", "Inter", "Segoe UI", "Roboto", "Helvetica Neue",
+      sans-serif;
+    font-weight: 700;
+  }
+
+  p,
+  span,
+  div,
+  a {
+    font-family: "Nunito Sans", "Inter", "Segoe UI", "Roboto", "Helvetica Neue",
+      sans-serif;
+    font-weight: 400;
+  }
+
+  button,
+  .btn {
+    font-family: "Nunito Sans", "Inter", "Segoe UI", "Roboto", "Helvetica Neue",
+      sans-serif;
+    font-weight: 600;
   }
 }
