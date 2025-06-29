@@ -163,6 +163,12 @@ export default function RelatedProducts({
                       >
                         {product.name}
                       </Link>
+                      {product.weight && (
+                        <div className="product-weight text-caption-2">
+                          {locale === "ar" ? "الوزن:" : "Weight:"}{" "}
+                          {product.weight}
+                        </div>
+                      )}
                       <span className="price">
                         {/* Show original price (crossed out) if there's a discount */}
                         {/* {product.discount > 0 && (
@@ -183,11 +189,11 @@ export default function RelatedProducts({
                               : product.price
                             )?.toFixed(2)}`}
                       </span>
-                      {product.category && (
+                      {/* {product.category && (
                         <div className="product-category text-caption-2">
                           {product.category.name}
                         </div>
-                      )}
+                      )} */}
                     </div>
                   </div>
                 </SwiperSlide>

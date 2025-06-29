@@ -361,6 +361,7 @@
   },
   "product": {
     "selectColor": "اختر اللون",
-    "selectSize": "اختر المقاس"
+    "selectSize": "اختر المقاس",
+    "weight": "الوزن"
   }
 }

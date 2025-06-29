@@ -62,8 +62,7 @@ export default function Context({ children }) {
       price: typeof product.price === "number" ? product.price : 0,
       oldPrice: product.oldPrice,
       quantity: typeof product.quantity === "number" ? product.quantity : 1,
-      selectedColor: product.selectedColor,
-      selectedSize: product.selectedSize,
+      weight: product.weight,
       cartId: product.cartId,
       discount: product.discount,
       category: product.category,
@@ -168,13 +167,7 @@ export default function Context({ children }) {
     return false;
   };
 
-  const addProductToCart = async (
-    product,
-    qty,
-    isModal = true,
-    selectedColor = null,
-    selectedSize = null
-  ) => {
+  const addProductToCart = async (product, qty, isModal = true) => {
     // Handle both product object and product ID
     const productId = typeof product === "object" ? product.id : product;
 
@@ -192,8 +185,6 @@ export default function Context({ children }) {
         item = {
           ...product,
           quantity: qty ? qty : 1,
-          selectedColor: product.selectedColor || selectedColor,
-          selectedSize: product.selectedSize || selectedSize,
         };
       } else {
         // Product ID passed (from product detail pages)
@@ -205,8 +196,7 @@ export default function Context({ children }) {
           imgSrc: "/images/placeholder.jpg",
           price: 0,
           quantity: qty ? qty : 1,
-          selectedColor: selectedColor,
-          selectedSize: selectedSize,
+          weight: "",
         };
       }
 
@@ -215,33 +205,13 @@ export default function Context({ children }) {
 
       if (user !== null) {
         // User is authenticated - use API and update local state
-        // Handle different color and size data structures
-        const colorValue =
-          (typeof normalizedItem.selectedColor === "string"
-            ? normalizedItem.selectedColor
-            : normalizedItem.selectedColor?.value ||
-              normalizedItem.selectedColor?.name ||
-              normalizedItem.selectedColor?.color ||
-              normalizedItem.selectedColor?.bgColor
-                ?.replace("bg-", "")
-                .replace("-", " ") ||
-              "") || "";
-        const sizeValue =
-          (typeof normalizedItem.selectedSize === "string"
-            ? normalizedItem.selectedSize
-            : normalizedItem.selectedSize?.value ||
-              normalizedItem.selectedSize?.size ||
-              normalizedItem.selectedSize?.name ||
-              "") || "";
+        const weightValue = normalizedItem.weight || "";
         console.log("Adding to cart:", {
           productId,
           qty: qty || 1,
-          colorValue,
-          sizeValue,
-          selectedColor: normalizedItem.selectedColor,
-          selectedSize: normalizedItem.selectedSize,
+          weight: weightValue,
         });
-        await addToCart(productId, qty || 1, colorValue, sizeValue);
+        await addToCart(productId, qty || 1, weightValue);
         setCartProducts((pre) => [...pre, normalizedItem]);
       } else {
         // User not authenticated - use local state only

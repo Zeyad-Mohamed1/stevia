@@ -142,6 +142,10 @@ export default function ShopCart() {
                                 >
                                   {elm.title}
                                 </Link>
+                                <div className="cart-weight">
+                                  {locale === "ar" ? "الوزن:" : "Weight:"}{" "}
+                                  {elm.weight}
+                                </div>
                               </div>
                             </td>
                             <td

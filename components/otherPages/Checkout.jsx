@@ -561,6 +561,10 @@ export default function Checkout() {
                           >
                             {elm.name || elm.title}
                           </Link>
+                          <div className="cart-weight">
+                            {locale === "ar" ? "الوزن:" : "Weight:"}{" "}
+                            {elm.weight}
+                          </div>
                           <div className="variant text-caption-1 text-secondary">
                             <span className="size">
                               {typeof elm.selectedSize === "object"

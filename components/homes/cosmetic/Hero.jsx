@@ -7,9 +7,11 @@ import { Pagination } from "swiper/modules";
 import { useLocale } from "next-intl";
 import { useQuery } from "@tanstack/react-query";
 import { getSlider } from "@/actions/slider";
+import "@/styles/hero-slider.css";
 
 export default function Hero() {
   const locale = useLocale();
+  const isRtl = locale === "ar";
 
   const { data: sliders, isLoading } = useQuery({
     queryKey: ["slider"],
@@ -37,7 +39,7 @@ export default function Hero() {
   return (
     <div className="tf-slideshow slider-style2 slider-effect-fade">
       <Swiper
-        dir="ltr"
+        dir={isRtl ? "ltr" : "ltr"}
         centeredSlides={false}
         spaceBetween={0}
         loop={true}
@@ -71,6 +73,7 @@ export default function Hero() {
                 src={slider.image_path}
                 width={1920}
                 height={796}
+                className="hero-slider-image"
               />
               <div className="box-content">
                 <div className="container">

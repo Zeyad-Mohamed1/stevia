@@ -10,15 +10,13 @@ export async function getCart() {
 export async function addToCart(
   productId: number,
   qty: number,
-  color: string,
-  size: string
+  weight: string
 ) {
-  console.log("addToCart", productId, qty, color, size);
+  console.log("addToCart", productId, qty, weight);
   const formData = new FormData();
   formData.append("item_id", productId.toString());
   formData.append("qty", qty.toString());
-  formData.append("color", color);
-  formData.append("size", size);
+  formData.append("weight", weight);
   const response = await postFormData("/add-to-cart", formData);
   return response;
 }
@@ -63,15 +61,14 @@ export async function syncCartWithBackend(localCartItems) {
       .map((item) => ({
         id: item.id || item.item_id,
         quantity: item.quantity || item.qty || 1,
-        color: item.selectedColor || item.color || "",
-        size: item.selectedSize || item.size || "",
+        weight: item.weight || "",
       }))
       .filter((item) => item.id); // Only include items with valid IDs
 
     // Sync each local cart item to backend
     const syncPromises = normalizedItems.map(async (item) => {
       try {
-        await addToCart(item.id, item.quantity, item.color, item.size);
+        await addToCart(item.id, item.quantity, item.weight);
         return { success: true, itemId: item.id };
       } catch (error) {
         console.error(`Failed to sync item ${item.id}:`, error);
@@ -102,7 +99,7 @@ export async function syncCartWithBackend(localCartItems) {
 export async function bulkAddToCart(cartItems) {
   const results = await Promise.allSettled(
     cartItems.map((item) =>
-      addToCart(item.id, item.quantity, item.color, item.size)
+      addToCart(item.id, item.quantity, item.weight || "")
     )
   );
 
@@ -154,8 +151,7 @@ export async function checkoutWithOutAuth({
     cart.forEach((item, index) => {
       formData.append(`cart[${index}][item_id]`, item.item_id.toString());
       formData.append(`cart[${index}][qty]`, item.qty.toString());
-      formData.append(`cart[${index}][color]`, item.color || "");
-      formData.append(`cart[${index}][size]`, item.size || "");
+      formData.append(`cart[${index}][weight]`, item.weight || "");
     });
   }
   const response = await postFormData("/checkout", formData);

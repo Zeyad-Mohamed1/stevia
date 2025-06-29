@@ -156,6 +156,7 @@ export default function Details1({ product, locale = "en" }) {
                           getTranslation("category", locale)}
                       </div>
                       <h3 className="name">{product.name}</h3>
+
                       <div className="sub">
                         <div className="tf-product-info-rate">
                           <div className="list-star">
@@ -211,6 +212,18 @@ export default function Details1({ product, locale = "en" }) {
                           </h5>
                         )}
                       </div>
+                      {product.weight && (
+                        <div className="tf-product-info-weight">
+                          <p className="text-caption-1">
+                            <span className="weight-label">
+                              {locale === "ar" ? "الوزن:" : "Weight:"}
+                            </span>{" "}
+                            <span className="weight-value">
+                              {product.weight}
+                            </span>
+                          </p>
+                        </div>
+                      )}
                       <div
                         dangerouslySetInnerHTML={{
                           __html: product.description,

@@ -21,19 +21,10 @@ export default function ProductCard1({
   const [product, setProduct] = useState(productData);
 
   const [currentImage, setCurrentImage] = useState(productData.imgSrc);
-  const [selectedColor, setSelectedColor] = useState(
-    productData.colors?.[0] || null
-  );
-  const [selectedSize, setSelectedSize] = useState(
-    productData.sizes?.[0] || null
-  );
-  const [showQuickSelect, setShowQuickSelect] = useState(false);
 
   useEffect(() => {
     setProduct(productData);
     setCurrentImage(productData.imgSrc);
-    setSelectedColor(productData.colors?.[0] || null);
-    setSelectedSize(productData.sizes?.[0] || null);
   }, [productData]);
 
   const queryClient = useQueryClient();
@@ -114,80 +105,33 @@ export default function ProductCard1({
     }
   };
 
-  // Handle color selection
-  const handleColorSelect = (color) => {
-    setSelectedColor(color);
-    if (color.imgSrc) {
-      setCurrentImage(color.imgSrc);
-    }
-  };
-
-  // Handle size selection
-  const handleSizeSelect = (size) => {
-    setSelectedSize(size);
-  };
-
-  // Handle quick add to cart with variants
+  // Handle quick add to cart
   const handleQuickAddToCart = () => {
-    // If product has colors or sizes, show quick select modal
-    if (
-      (product.colors?.length > 0 || product.sizes?.length > 0) &&
-      !showQuickSelect
-    ) {
-      setShowQuickSelect(true);
-      return;
-    }
-
-    // Auto-select first color and size if none are selected
-    const finalSelectedColor =
-      selectedColor || (product.colors?.length > 0 ? product.colors[0] : null);
-    const finalSelectedSize =
-      selectedSize || (product.sizes?.length > 0 ? product.sizes[0] : null);
-
-    // Create a complete product object for the cart with selected variants
+    // Create a complete product object for the cart
     const productForCart = {
       id: product.id,
       title: product.title,
-      imgSrc: finalSelectedColor?.imgSrc || product.imgSrc,
+      imgSrc: product.imgSrc,
       price: currentPrice,
       oldPrice: hasDiscount ? originalPrice : null,
-      selectedColor: finalSelectedColor,
-      selectedSize: finalSelectedSize,
-      // Add unique cart ID to handle same product with different variants
-      cartId: `${product.id}-${
-        finalSelectedColor?.bgColor ||
-        finalSelectedColor?.colorCode ||
-        "default"
-      }-${finalSelectedSize || "default"}`,
+      weight: product.weight,
+      cartId: `${product.id}`,
     };
 
     addProductToCart(productForCart);
-    setShowQuickSelect(false);
   };
 
   // Handle add to cart - directly add without confirmation
   const handleAddToCart = () => {
-    // Auto-select first color and size if none are selected
-    const finalSelectedColor =
-      selectedColor || (product.colors?.length > 0 ? product.colors[0] : null);
-    const finalSelectedSize =
-      selectedSize || (product.sizes?.length > 0 ? product.sizes[0] : null);
-
-    // Create a complete product object for the cart with selected variants
+    // Create a complete product object for the cart
     const productForCart = {
       id: product.id,
       title: product.title,
-      imgSrc: finalSelectedColor?.imgSrc || product.imgSrc,
+      imgSrc: product.imgSrc,
       price: currentPrice,
       oldPrice: hasDiscount ? originalPrice : null,
-      selectedColor: finalSelectedColor,
-      selectedSize: finalSelectedSize,
-      // Add unique cart ID to handle same product with different variants
-      cartId: `${product.id}-${
-        finalSelectedColor?.bgColor ||
-        finalSelectedColor?.colorCode ||
-        "default"
-      }-${finalSelectedSize || "default"}`,
+      weight: product.weight,
+      cartId: `${product.id}`,
     };
 
     addProductToCart(productForCart);
@@ -197,7 +141,7 @@ export default function ProductCard1({
     <div
       className={`${parentClass} ${gridClass} ${
         product?.isOnSale ? "on-sale" : ""
-      } ${product?.sizes?.length > 0 ? "card-product-size" : ""}`}
+      }`}
     >
       <div
         className={`card-product-wrapper ${
@@ -228,130 +172,6 @@ export default function ProductCard1({
             />
           )}
         </Link>
-
-        {/* Quick Selection Modal */}
-        {showQuickSelect && (
-          <div
-            className="quick-select-overlay"
-            onClick={() => setShowQuickSelect(false)}
-          >
-            <div
-              className="quick-select-modal"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="quick-select-header">
-                <h4>{product.title}</h4>
-                <button
-                  className="btn-close"
-                  onClick={() => setShowQuickSelect(false)}
-                >
-                  <span className="icon icon-close"></span>
-                </button>
-              </div>
-
-              <div className="quick-select-content">
-                {/* Color Selection */}
-                {product.colors?.length > 0 && (
-                  <div className="variant-group">
-                    <div className="variant-label">
-                      {locale === "ar" ? "اللون" : "Color"}:{" "}
-                      <span className="selected-value">
-                        {selectedColor?.bgColor
-                          ?.replace("bg-", "")
-                          .replace("-", " ") ||
-                          selectedColor?.name ||
-                          selectedColor?.colorCode ||
-                          (locale === "ar" ? "اختر اللون" : "Select Color")}
-                      </span>
-                    </div>
-                    <div className="variant-options">
-                      {product.colors.map((color, index) => (
-                        <button
-                          key={index}
-                          className={`color-option ${
-                            selectedColor === color ? "active" : ""
-                          }`}
-                          onClick={() => handleColorSelect(color)}
-                          style={{
-                            backgroundColor:
-                              color.bgColor?.replace("bg-", "") ||
-                              color.colorCode,
-                          }}
-                          title={
-                            color.bgColor
-                              ?.replace("bg-", "")
-                              .replace("-", " ") ||
-                            color.name ||
-                            color.colorCode
-                          }
-                        >
-                          <span
-                            className="color-swatch"
-                            style={{
-                              backgroundColor:
-                                color.bgColor?.replace("bg-", "") ||
-                                color.colorCode,
-                            }}
-                          ></span>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Size Selection */}
-                {product.sizes?.length > 0 && (
-                  <div className="variant-group">
-                    <div className="variant-label">
-                      {locale === "ar" ? "المقاس" : "Size"}:{" "}
-                      <span className="selected-value">
-                        {selectedSize ||
-                          (locale === "ar" ? "اختر المقاس" : "Select Size")}
-                      </span>
-                    </div>
-                    <div className="variant-options">
-                      {product.sizes.map((size, index) => (
-                        <button
-                          key={index}
-                          className={`size-option ${
-                            selectedSize === size ? "active" : ""
-                          }`}
-                          onClick={() => handleSizeSelect(size)}
-                        >
-                          {size}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Price Display */}
-                <div className="variant-price">
-                  <span className="price">
-                    {hasDiscount && originalPrice && (
-                      <span className="old-price">
-                        {locale === "ar"
-                          ? `ج.م ${originalPrice.toFixed(2)}`
-                          : `EGP ${originalPrice.toFixed(2)}`}
-                      </span>
-                    )}{" "}
-                    {locale === "ar"
-                      ? `ج.م ${currentPrice?.toFixed(2)}`
-                      : `EGP ${currentPrice?.toFixed(2)}`}
-                  </span>
-                </div>
-
-                {/* Add to Cart Button */}
-                <button
-                  className="btn btn-primary w-100 mt-3"
-                  onClick={handleQuickAddToCart}
-                >
-                  {locale === "ar" ? "أضف إلى السلة" : "Add to Cart"}
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* Hot Sale Banner */}
         {product?.hotSale && (
@@ -534,28 +354,17 @@ export default function ProductCard1({
           </a>
         </div>
 
-        {/* <div className="list-btn-main">
-          {product?.addToCart === "Quick Add" ? (
-            <a
-              className="btn-main-product"
-              href="#quickAdd"
-              onClick={() => setQuickAddItem(product.id)}
-              data-bs-toggle="modal"
-            >
-              {locale === "ar" ? "إضافة سريعة" : "Quick Add"}
-            </a>
-          ) : (
-            <a className="btn-main-product" onClick={handleAddToCart}>
-              {isAddedToCartProducts(product?.id)
-                ? locale === "ar"
-                  ? "تم الإضافة بالفعل"
-                  : "Already Added"
-                : locale === "ar"
-                ? "أضف إلى السلة"
-                : "ADD TO CART"}
-            </a>
-          )}
-        </div> */}
+        <div className="list-btn-main">
+          <a className="btn-main-product" onClick={handleAddToCart}>
+            {isAddedToCartProducts(product?.id)
+              ? locale === "ar"
+                ? "تم الإضافة بالفعل"
+                : "Already Added"
+              : locale === "ar"
+              ? "أضف إلى السلة"
+              : "ADD TO CART"}
+          </a>
+        </div>
       </div>
 
       <div className="card-product-info">
@@ -574,212 +383,36 @@ export default function ProductCard1({
             ? `ج.م ${currentPrice?.toFixed(2)}`
             : `EGP ${currentPrice?.toFixed(2)}`}
         </span>
-        {product?.colors?.length > 0 && (
-          <ul className="list-color-product">
-            {product?.colors?.map((color, index) => (
-              <li
-                key={index}
-                className={`list-color-item color-swatch ${
-                  currentImage === color.imgSrc ? "active" : ""
-                }`}
-                onMouseOver={() => setCurrentImage(color.imgSrc)}
-              >
-                <span
-                  className="swatch-value"
-                  style={{
-                    backgroundColor:
-                      color.bgColor?.replace("bg-", "") ||
-                      color.bgColor ||
-                      color.colorCode,
-                  }}
-                />
-                {color.imgSrc && color.imgSrc.trim() !== "" && (
-                  <Image
-                    className="lazyload"
-                    src={color.imgSrc}
-                    alt="color variant"
-                    width={600}
-                    height={800}
-                  />
-                )}
-              </li>
-            ))}
-          </ul>
+        {product?.weight && (
+          <div className="product-weight">
+            <span className="weight-label">
+              {locale === "ar" ? "الوزن:" : "Weight:"}{" "}
+            </span>
+            <span className="weight-value">{product.weight}</span>
+          </div>
         )}
       </div>
 
       <style jsx>{`
-        .quick-select-overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: rgba(0, 0, 0, 0.5);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          z-index: 9999;
-        }
-
-        .quick-select-modal {
-          background: white;
-          padding: 20px;
-          border-radius: 8px;
-          max-width: 400px;
-          width: 90%;
-          max-height: 80vh;
-          overflow-y: auto;
-        }
-
-        .quick-select-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 20px;
-          padding-bottom: 10px;
-          border-bottom: 1px solid #eee;
-        }
-
-        .quick-select-header h4 {
-          margin: 0;
-          font-size: 18px;
-        }
-
-        .btn-close {
-          background: none;
-          border: none;
-          font-size: 20px;
-          cursor: pointer;
-          padding: 5px;
-        }
-
-        .variant-group {
-          margin-bottom: 20px;
-        }
-
-        .variant-label {
-          font-weight: 600;
-          margin-bottom: 10px;
-          font-size: 14px;
-        }
-
-        .selected-value {
-          font-weight: normal;
-          color: #666;
-        }
-
-        .variant-options {
-          display: flex;
-          gap: 8px;
-          flex-wrap: wrap;
-        }
-
-        .color-option {
-          width: 28px;
-          height: 28px;
-          border: 2px solid #ddd;
-          border-radius: 50%;
-          cursor: pointer;
-          transition: all 0.2s ease;
-          background: none;
-          padding: 2px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .color-option.active {
-          border-color: #000;
-          transform: scale(1.1);
-        }
-
-        .color-swatch {
-          width: 20px;
-          height: 20px;
-          border-radius: 50%;
-          display: block;
-        }
-
-        .list-color-product {
-          display: flex;
-          gap: 6px;
-          margin: 8px 0 0 0;
-          padding: 0;
-          list-style: none;
-        }
-
-        .list-color-item {
-          width: 28px;
-          height: 28px;
-          border-radius: 50%;
-          cursor: pointer;
-          border: 2px solid transparent;
-          transition: all 0.2s ease;
-          position: relative;
-          overflow: hidden;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 2px;
-        }
-
-        .list-color-item.active {
-          border-color: #000;
-          transform: scale(1.1);
-        }
-
-        .list-color-item:hover {
-          transform: scale(1.1);
-        }
-
-        .swatch-value {
-          width: 20px;
-          height: 20px;
-          border-radius: 50%;
-          display: block;
-        }
-
-        .list-color-item .lazyload {
-          display: none;
-        }
-
-        .size-option {
-          padding: 8px 12px;
-          border: 1px solid #ddd;
-          background: white;
-          cursor: pointer;
-          transition: all 0.2s ease;
-          border-radius: 4px;
-          font-size: 14px;
-        }
-
-        .size-option:hover:not(.disabled) {
-          border-color: #000;
-        }
-
-        .size-option.active {
-          background: #000;
-          color: white;
-          border-color: #000;
-        }
-
-        .size-option.disabled {
-          opacity: 0.5;
-          cursor: not-allowed;
-          text-decoration: line-through;
-        }
-
-        .variant-price {
-          margin: 15px 0;
-          font-size: 18px;
-          font-weight: 600;
-        }
-
         .old-price {
           text-decoration: line-through;
           color: #999;
           margin-right: 8px;
+        }
+
+        .product-weight {
+          margin: 8px 0 0 0;
+          font-size: 14px;
+          color: #666;
+        }
+
+        .weight-label {
+          font-weight: 500;
+        }
+
+        .weight-value {
+          font-weight: 400;
+          color: #333;
         }
       `}</style>
     </div>

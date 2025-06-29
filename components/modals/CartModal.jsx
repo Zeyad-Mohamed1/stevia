@@ -165,36 +165,11 @@ export default function CartModal() {
                               </div>
                               <div className="d-flex align-items-center justify-content-between flex-wrap gap-12">
                                 <div className="d-flex align-items-center gap-2">
-                                  {product.selectedColor && (
-                                    <div className="d-flex align-items-center gap-1">
-                                      <div
-                                        className="rounded-circle"
-                                        style={{
-                                          backgroundColor:
-                                            product.selectedColor.bgColor ||
-                                            product.selectedColor.colorCode ||
-                                            product.selectedColor.name ||
-                                            product.selectedColor,
-                                          width: "20px",
-                                          height: "20px",
-                                          border: "1px solid #ddd",
-                                        }}
-                                      />
-                                      <span className="text-caption-2">
-                                        {product.selectedColor.name ||
-                                          product.selectedColor.value ||
-                                          product.selectedColor}
-                                      </span>
-                                    </div>
-                                  )}
-                                  {product.selectedSize && (
+                                  {product.weight && (
                                     <div className="d-flex align-items-center gap-1">
                                       <span className="text-caption-2">
-                                        Size:{" "}
-                                        {product.selectedSize.value ||
-                                          product.selectedSize.size ||
-                                          product.selectedSize.name ||
-                                          product.selectedSize}
+                                        {locale === "ar" ? "الوزن:" : "Weight:"}{" "}
+                                        {product.weight}
                                       </span>
                                     </div>
                                   )}

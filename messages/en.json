@@ -361,6 +361,7 @@
   },
   "product": {
     "selectColor": "Select Color",
-    "selectSize": "Select Size"
+    "selectSize": "Select Size",
+    "weight": "Weight"
   }
 }

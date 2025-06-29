@@ -1,9 +1,9 @@
 // Language-specific font families
 
-// English fonts - Using Nunito Sans as primary font (Sunset Gothic alternative)
+// English fonts - Using Sunset Gothic as primary font (with Nunito Sans fallback)
 :lang(en) {
-  font-family: "Nunito Sans", "Inter", "Segoe UI", "Roboto", "Helvetica Neue",
-    sans-serif;
+  font-family: "Sunset Gothic", "Nunito Sans", "Inter", "Segoe UI", "Roboto",
+    "Helvetica Neue", sans-serif;
 }
 
 // Arabic fonts - Using Alexandria as primary font
@@ -63,8 +63,8 @@
   h4,
   h5,
   h6 {
-    font-family: "Nunito Sans", "Inter", "Segoe UI", "Roboto", "Helvetica Neue",
-      sans-serif;
+    font-family: "Sunset Gothic", "Nunito Sans", "Inter", "Segoe UI", "Roboto",
+      "Helvetica Neue", sans-serif;
     font-weight: 700;
   }
 
@@ -72,15 +72,15 @@
   span,
   div,
   a {
-    font-family: "Nunito Sans", "Inter", "Segoe UI", "Roboto", "Helvetica Neue",
-      sans-serif;
+    font-family: "Sunset Gothic", "Nunito Sans", "Inter", "Segoe UI", "Roboto",
+      "Helvetica Neue", sans-serif;
     font-weight: 400;
   }
 
   button,
   .btn {
-    font-family: "Nunito Sans", "Inter", "Segoe UI", "Roboto", "Helvetica Neue",
-      sans-serif;
+    font-family: "Sunset Gothic", "Nunito Sans", "Inter", "Segoe UI", "Roboto",
+      "Helvetica Neue", sans-serif;
     font-weight: 600;
   }
 }

@@ -1,8 +1,226 @@
-/* Alexandria Font for Arabic */
-@import url("https://fonts.googleapis.com/css2?family=Alexandria:wght@100;200;300;400;500;600;700;800;900&display=swap");
+/* Alexandria Font for Arabic - Local Files */
+@font-face {
+  font-family: "Alexandria";
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url("./alexandria/ALEXANDRIA-THIN.TTF") format("truetype");
+}
 
-/* Nunito Sans Font for English (Sunset Gothic alternative) */
-@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
+@font-face {
+  font-family: "Alexandria";
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url("./alexandria/ALEXANDRIA-EXTRALIGHT.TTF") format("truetype");
+}
+
+@font-face {
+  font-family: "Alexandria";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("./alexandria/ALEXANDRIA-LIGHT.TTF") format("truetype");
+}
+
+@font-face {
+  font-family: "Alexandria";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./alexandria/ALEXANDRIA-REGULAR.TTF") format("truetype");
+}
+
+@font-face {
+  font-family: "Alexandria";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./alexandria/ALEXANDRIA-MEDIUM.TTF") format("truetype");
+}
+
+@font-face {
+  font-family: "Alexandria";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("./alexandria/ALEXANDRIA-SEMIBOLD.TTF") format("truetype");
+}
+
+@font-face {
+  font-family: "Alexandria";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./alexandria/ALEXANDRIA-BOLD.TTF") format("truetype");
+}
+
+@font-face {
+  font-family: "Alexandria";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("./alexandria/ALEXANDRIA-EXTRABOLD.TTF") format("truetype");
+}
+
+@font-face {
+  font-family: "Alexandria";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("./alexandria/ALEXANDRIA-BLACK.TTF") format("truetype");
+}
+
+/* Sunset Gothic Font for English - Local Files */
+@font-face {
+  font-family: "Sunset Gothic";
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url("./sunset-gothic/SUNSET-GOTHIC-PRO-THIN.TTF") format("truetype");
+}
+
+@font-face {
+  font-family: "Sunset Gothic";
+  font-style: italic;
+  font-weight: 100;
+  font-display: swap;
+  src: url("./sunset-gothic/SUNSET-GOTHIC-PRO-THIN-ITALIC.TTF")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "Sunset Gothic";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("./sunset-gothic/SUNSET-GOTHIC-PRO-LIGHT.TTF") format("truetype");
+}
+
+@font-face {
+  font-family: "Sunset Gothic";
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: url("./sunset-gothic/SUNSET-GOTHIC-PRO-LIGHT-ITALIC.TTF")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "Sunset Gothic";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./sunset-gothic/SUNSET-GOTHIC-PRO.TTF") format("truetype");
+}
+
+@font-face {
+  font-family: "Sunset Gothic";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./sunset-gothic/SUNSET-GOTHIC-PRO-ITALIC.TTF") format("truetype");
+}
+
+@font-face {
+  font-family: "Sunset Gothic";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./sunset-gothic/SUNSET-GOTHIC-PRO-MEDIUM.TTF") format("truetype");
+}
+
+@font-face {
+  font-family: "Sunset Gothic";
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./sunset-gothic/SUNSET-GOTHIC-PRO-MEDIUM-ITALIC.TTF")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "Sunset Gothic";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./sunset-gothic/SUNSET-GOTHIC-PRO-BOLD-1.TTF") format("truetype");
+}
+
+@font-face {
+  font-family: "Sunset Gothic";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./sunset-gothic/SUNSET-GOTHIC-PRO-BOLD-ITALIC.TTF")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "Sunset Gothic";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("./sunset-gothic/SUNSET-GOTHIC-PRO-HEAVY.TTF") format("truetype");
+}
+
+@font-face {
+  font-family: "Sunset Gothic";
+  font-style: italic;
+  font-weight: 800;
+  font-display: swap;
+  src: url("./sunset-gothic/SUNSET-GOTHIC-PRO-HEAVY-ITALIC.TTF")
+    format("truetype");
+}
+
+/* Alternative font family name for compatibility */
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url("./sunset-gothic/SUNSET-GOTHIC-PRO-THIN.TTF") format("truetype");
+}
+
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("./sunset-gothic/SUNSET-GOTHIC-PRO-LIGHT.TTF") format("truetype");
+}
+
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./sunset-gothic/SUNSET-GOTHIC-PRO.TTF") format("truetype");
+}
+
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./sunset-gothic/SUNSET-GOTHIC-PRO-MEDIUM.TTF") format("truetype");
+}
+
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./sunset-gothic/SUNSET-GOTHIC-PRO-BOLD-1.TTF") format("truetype");
+}
+
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("./sunset-gothic/SUNSET-GOTHIC-PRO-HEAVY.TTF") format("truetype");
+}
 
 /* math */
 @font-face {

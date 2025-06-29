@@ -26,17 +26,11 @@ export default function Products5() {
       id: product.id,
       title: product.name,
       imgSrc: product.image_path,
-      imgHover: product.colors?.[0]?.image_path || product.image_path,
+      imgHover: product.image_path, // No longer using color hover images
       price: product.price,
       discount: product.discount,
       isOnSale: product.discount > 0,
-      colors:
-        product.colors?.map((color) => ({
-          imgSrc: color.image_path,
-          colorCode: color.color,
-          bgColor: color.color,
-        })) || [],
-      sizes: product.sizes?.map((size) => size.size) || [],
+      weight: product.weight,
       isAvailable: product.is_available === 1,
     };
   };
