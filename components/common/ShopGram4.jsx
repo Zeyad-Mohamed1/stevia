@@ -18,6 +18,8 @@ export default function ShopGram4() {
     queryFn: () => getImages(),
   });
 
+  console.log(images);
+
   if (isLoading) {
     return (
       <section>
@@ -90,28 +92,48 @@ export default function ShopGram4() {
       >
         {images.map((item, index) => (
           <SwiperSlide key={item.id}>
-            <div
-              className="gallery-item rounded-0 hover-overlay hover-img wow fadeInUp"
-              data-wow-delay={`${(index + 1) * 0.1}s`}
-            >
-              <div className="img-style">
-                <Image
-                  className="lazyload img-hover"
-                  data-src={item.image_path}
-                  alt={`Instagram image ${item.id}`}
-                  src={item.image_path}
-                  width={480}
-                  height={480}
-                />
-              </div>
-              {/* <Link
+            {item.url ? (
+              <Link
+                href={item.url}
+                target="_blank"
+                className="gallery-item rounded-0 hover-overlay hover-img wow fadeInUp cursor-pointer"
+                data-wow-delay={`${(index + 1) * 0.1}s`}
+              >
+                <div className="img-style">
+                  <Image
+                    className="lazyload img-hover"
+                    data-src={item.image_path}
+                    alt={`Instagram image ${item.id}`}
+                    src={item.image_path}
+                    width={480}
+                    height={480}
+                  />
+                </div>
+              </Link>
+            ) : (
+              <div
+                className="gallery-item rounded-0 hover-overlay hover-img wow fadeInUp"
+                data-wow-delay={`${(index + 1) * 0.1}s`}
+              >
+                <div className="img-style">
+                  <Image
+                    className="lazyload img-hover"
+                    data-src={item.image_path}
+                    alt={`Instagram image ${item.id}`}
+                    src={item.image_path}
+                    width={480}
+                    height={480}
+                  />
+                </div>
+                {/* <Link
                 href={`/product-detail/${item.id}`}
                 className="box-icon hover-tooltip"
               >
                 <span className="icon icon-eye"></span>
                 <span className="tooltip">View Product</span>
               </Link> */}
-            </div>
+              </div>
+            )}
           </SwiperSlide>
         ))}
       </Swiper>
