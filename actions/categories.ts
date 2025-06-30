@@ -23,6 +23,11 @@ export async function getSubCafesProducts(id, page = 1) {
   const formData = new FormData();
   formData.append("id", id);
   formData.append("page", page.toString());
-  const response = await postFormData(`/items/sub_cafes`, formData);
+  const response = await postFormData(`/items/cafes`, formData);
+  return response;
+}
+
+export async function getBrandCategories() {
+  const response = await get("/brand-categories");
   return response;
 }

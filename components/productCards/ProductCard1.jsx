@@ -30,12 +30,35 @@ export default function ProductCard1({
   const queryClient = useQueryClient();
   const { user } = useUserStore();
   const router = useRouter();
+
+  console.log("User state:", user);
+  console.log("Product ID:", product?.id);
   const { mutate: updateFavorite, isPending: isUpdatingFavorite } = useMutation(
     {
       mutationFn: (productId) => updateFavorites(productId),
-      onSuccess: () => {
-        // Optionally refetch favorites after successful update
-        queryClient.invalidateQueries(["favorites"]);
+      onSuccess: (response) => {
+        console.log("Favorite update response:", response);
+        // Check if the response indicates success
+        if (response?.status === "success" || response?.message === "success") {
+          // Optionally refetch favorites after successful update
+          queryClient.invalidateQueries(["favorites"]);
+          console.log("Successfully updated favorites");
+        } else {
+          console.error("Favorite update failed:", response);
+          alert(
+            locale === "ar"
+              ? "فشل في تحديث المفضلة"
+              : "Failed to update favorites"
+          );
+        }
+      },
+      onError: (error) => {
+        console.error("Error updating favorites:", error);
+        alert(
+          locale === "ar"
+            ? "حدث خطأ أثناء تحديث المفضلة"
+            : "Error updating favorites"
+        );
       },
     }
   );
@@ -43,6 +66,10 @@ export default function ProductCard1({
   const { data: favorites, isLoading: isLoadingFavorites } = useQuery({
     queryKey: ["favorites"],
     queryFn: () => getFavorites(),
+    enabled: !!user, // Only fetch favorites when user is logged in
+    onError: (error) => {
+      console.error("Error fetching favorites:", error);
+    },
   });
 
   const { setQuickAddItem, addProductToCart, isAddedToCartProducts } =
@@ -86,21 +113,26 @@ export default function ProductCard1({
       return false;
     }
 
-    return favorites.some(
+    const isInFavorites = favorites.some(
       (fav) =>
         fav.id === productId || fav.productId === productId || fav === productId
     );
+
+    console.log(`Product ${productId} in favorites:`, isInFavorites, favorites);
+    return isInFavorites;
   };
 
   // Handle favorite toggle
   const handleFavoriteToggle = () => {
     // Check if user is authenticated
     if (!user) {
+      alert(locale === "ar" ? "يرجى تسجيل الدخول أولاً" : "Please login first");
       router.push("/login");
       return;
     }
 
     if (!isUpdatingFavorite) {
+      console.log("Updating favorite for product:", product.id);
       updateFavorite(product.id);
     }
   };
@@ -298,19 +330,6 @@ export default function ProductCard1({
           </div>
         )}
 
-        {/* Size List */}
-        {product?.sizes?.length > 0 && (
-          <div className="variant-wrap size-list">
-            <ul className="variant-box">
-              {product?.sizes?.map((size, index) => (
-                <li key={index} className="size-item">
-                  {size.value}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
         {/* Countdown */}
         {product?.countdown && (
           <div className="variant-wrap countdown-wrap">
@@ -333,17 +352,28 @@ export default function ProductCard1({
             className={`box-icon wishlist btn-icon-action ${
               isUpdatingFavorite ? "loading" : ""
             }`}
-            style={{ pointerEvents: isUpdatingFavorite ? "none" : "auto" }}
+            style={{
+              pointerEvents: isUpdatingFavorite ? "none" : "auto",
+              opacity: isUpdatingFavorite ? 0.6 : 1,
+            }}
           >
-            <span
-              className={`icon ${
-                isProductInFavorites(product?.id)
-                  ? "icon-heart-fill"
-                  : "icon-heart"
-              }`}
-            />
+            {isUpdatingFavorite ? (
+              <span className="icon icon-loading" />
+            ) : (
+              <span
+                className={`icon ${
+                  isProductInFavorites(product?.id)
+                    ? "icon-heart-fill"
+                    : "icon-heart"
+                }`}
+              />
+            )}
             <span className="tooltip">
-              {isProductInFavorites(product?.id)
+              {isUpdatingFavorite
+                ? locale === "ar"
+                  ? "جاري التحديث..."
+                  : "Updating..."
+                : isProductInFavorites(product?.id)
                 ? locale === "ar"
                   ? "إزالة من المفضلة"
                   : "Remove from Favorites"

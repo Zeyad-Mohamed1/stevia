@@ -141,17 +141,7 @@ export default function ProductCard3({ product }) {
             <span className="on-sale-item">-{product.salePercentage}</span>
           </div>
         )}
-        {product.sizes && (
-          <div className="variant-wrap size-list">
-            <ul className="variant-box">
-              {product.sizes.map((size) => (
-                <li key={size} className="size-item">
-                  {size}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+
         {product.countdown && (
           <div className="variant-wrap countdown-wrap">
             <div className="variant-box">
@@ -240,6 +230,12 @@ export default function ProductCard3({ product }) {
           )}{" "}
           ${product.price.toFixed(2)}
         </span>
+        {product.weight && (
+          <div className="product-weight mt-2">
+            <span className="weight-label text-secondary-2">Weight: </span>
+            <span className="weight-value">{product.weight}</span>
+          </div>
+        )}
         <div className="box-progress-stock">
           <div className="progress">
             <div

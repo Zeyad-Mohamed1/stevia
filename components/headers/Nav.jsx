@@ -10,7 +10,7 @@ export default function Nav() {
   const navItems = [
     { name: t("home"), href: "/" },
     { name: t("shop"), href: "/shop" },
-    { name: t("storeList"), href: "/store-list" },
+    { name: t("storeList"), href: "/our-brands" },
     { name: t("aboutUs"), href: "/about-us" },
     { name: t("contact"), href: "/contact" },
   ];

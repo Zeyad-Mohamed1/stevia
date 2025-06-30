@@ -96,10 +96,10 @@ export default function ShopGram4() {
               <Link
                 href={item.url}
                 target="_blank"
-                className="gallery-item rounded-0 hover-overlay hover-img wow fadeInUp cursor-pointer"
+                className="gallery-item rounded-0 hover-overlay hover-img wow fadeInUp cursor-pointer d-flex justify-content-center align-items-center"
                 data-wow-delay={`${(index + 1) * 0.1}s`}
               >
-                <div className="img-style">
+                <div className="img-style text-center">
                   <Image
                     className="lazyload img-hover"
                     data-src={item.image_path}
@@ -112,10 +112,10 @@ export default function ShopGram4() {
               </Link>
             ) : (
               <div
-                className="gallery-item rounded-0 hover-overlay hover-img wow fadeInUp"
+                className="gallery-item rounded-0 hover-overlay hover-img wow fadeInUp d-flex justify-content-center align-items-center"
                 data-wow-delay={`${(index + 1) * 0.1}s`}
               >
-                <div className="img-style">
+                <div className="img-style text-center">
                   <Image
                     className="lazyload img-hover"
                     data-src={item.image_path}

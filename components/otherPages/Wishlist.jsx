@@ -7,8 +7,10 @@ import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { getFavorites } from "@/actions/products";
 import { useUserStore } from "@/store/userStore";
+import { useLocale } from "next-intl";
 
 export default function Wishlist() {
+  const locale = useLocale();
   const { user } = useUserStore();
   const [items, setItems] = useState([]);
 
@@ -37,9 +39,15 @@ export default function Wishlist() {
         <div className="container">
           <div className="text-center py-5">
             <div className="spinner-border" role="status">
-              <span className="visually-hidden">Loading...</span>
+              <span className="visually-hidden">
+                {locale === "ar" ? "جاري التحميل..." : "Loading..."}
+              </span>
             </div>
-            <p className="mt-2 text-secondary">Loading your favorites...</p>
+            <p className="mt-2 text-secondary">
+              {locale === "ar"
+                ? "جاري التحميل..."
+                : "Loading your favorites..."}
+            </p>
           </div>
         </div>
       </section>
@@ -53,10 +61,12 @@ export default function Wishlist() {
         <div className="container">
           <div className="p-5 text-center">
             <p className="text-danger">
-              Failed to load favorites. Please try again.
+              {locale === "ar"
+                ? "فشل تحميل المفضلة. يرجى المحاولة مرة أخرى."
+                : "Failed to load favorites. Please try again."}
             </p>
             <Link className="btn-line" href="/shop-default-grid">
-              Explore Products
+              {locale === "ar" ? "استكشاف المنتجات" : "Explore Products"}
             </Link>
           </div>
         </div>
@@ -70,9 +80,13 @@ export default function Wishlist() {
       <section className="flat-spacing">
         <div className="container">
           <div className="p-5 text-center">
-            <p>Please log in to view your favorites.</p>
+            <p>
+              {locale === "ar"
+                ? "يرجى تسجيل الدخول لعرض المفضلة."
+                : "Please log in to view your favorites."}
+            </p>
             <Link className="btn-line" href="/login">
-              Login
+              {locale === "ar" ? "تسجيل الدخول" : "Login"}
             </Link>
           </div>
         </div>
@@ -97,10 +111,11 @@ export default function Wishlist() {
           </div>
         ) : (
           <div className="p-5">
-            Your wishlist is empty. Start adding your favorite products to save
-            them for later!{" "}
-            <Link className="btn-line" href="/shop-default-grid">
-              Explore Products
+            {locale === "ar"
+              ? "قائمة المفضلة فارغة. أضف منتجاتك المفضلة لحفظها للمرة القادمة!"
+              : "Your wishlist is empty. Start adding your favorite products to save them for later!"}{" "}
+            <Link className="btn-line" href="/shop">
+              {locale === "ar" ? "استكشاف المنتجات" : "Explore Products"}
             </Link>
           </div>
         )}

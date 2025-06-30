@@ -1,17 +1,19 @@
 "use client";
 
+import { collections } from "@/data/collections";
 import Image from "next/image";
 import Link from "next/link";
 import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useQuery } from "@tanstack/react-query";
-import { getCategories } from "@/actions/categories";
+import { getBrandCategories } from "@/actions/categories";
 
-export default function ShopCategories() {
-  const { data: categories } = useQuery({
-    queryKey: ["categories"],
-    queryFn: getCategories,
+export default function BrandCategories() {
+  const { data: brandCategories } = useQuery({
+    queryKey: ["brandCategories"],
+    queryFn: getBrandCategories,
   });
+
   return (
     <section className="flat-spacing">
       <div className="container">
@@ -36,18 +38,18 @@ export default function ShopCategories() {
             nextEl: ".snbn12",
           }}
         >
-          {categories?.slice(0, 6).map((collection, index) => (
+          {brandCategories?.slice(0, 6).map((brand, index) => (
             <SwiperSlide key={index}>
               <div className="collection-circle hover-img">
                 <Link
-                  href={`/products/${collection.id}-${collection.name}`}
+                  href={`/products/${brand.id}-${brand.name}`}
                   className="img-style"
                 >
                   <Image
                     className="lazyload"
-                    data-src={collection.logo_path}
-                    alt={collection.name}
-                    src={collection.logo_path}
+                    data-src={brand.logo_path}
+                    alt={brand.name}
+                    src={brand.logo_path}
                     width={363}
                     height={363}
                   />
@@ -55,14 +57,14 @@ export default function ShopCategories() {
                 <div className="collection-content text-center">
                   <div>
                     <Link
-                      href={`/products/${collection.id}-${collection.name}`}
+                      href={`/products/${brand.id}-${brand.name}`}
                       className="cls-title"
                     >
-                      <h6 className="title-category">{collection.name}</h6>
+                      <h6 className="title-category">{brand.name}</h6>
                       <i className="icon icon-arrowUpRight" />
                     </Link>
                   </div>
-                  {/* <div className="count text-secondary">{collection.count}</div> */}
+                  {/* <div className="count text-secondary">{brand.count}</div> */}
                 </div>
               </div>
             </SwiperSlide>

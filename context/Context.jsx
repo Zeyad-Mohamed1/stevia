@@ -43,11 +43,16 @@ export default function Context({ children }) {
     ? cartProductsState
     : [];
 
-  const { user, isAuthenticated } = useUserStore();
+  const { user, isAuthenticated, fetchUser } = useUserStore();
   const { syncCartOnLogin, handleLogout, isReady } = useCartPersistence(
     cartProducts,
     setCartProducts
   );
+
+  // Initialize user on app load
+  useEffect(() => {
+    fetchUser();
+  }, [fetchUser]);
 
   // Helper function to normalize cart product data
   const normalizeCartProduct = (product) => {

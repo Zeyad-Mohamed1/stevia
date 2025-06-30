@@ -31,26 +31,6 @@ export default function FilterMeta({
         ) : (
           ""
         )}
-        {allProps.size != "All" ? (
-          <span className="filter-tag" onClick={() => allProps.setSize("All")}>
-            {allProps.size}
-            <span className="remove-tag icon-close" />
-          </span>
-        ) : (
-          ""
-        )}
-        {allProps.color != "All" ? (
-          <span
-            className="filter-tag color-tag"
-            onClick={() => allProps.setColor("All")}
-          >
-            <span className={`color bg-red ${allProps.color.className} `} />
-            {allProps.color.name}
-            <span className="remove-tag icon-close" />
-          </span>
-        ) : (
-          ""
-        )}
 
         {allProps.brands.length ? (
           <React.Fragment>
@@ -69,10 +49,7 @@ export default function FilterMeta({
           ""
         )}
       </div>
-      {allProps.availability != "All" ||
-      allProps.size != "All" ||
-      allProps.color != "All" ||
-      allProps.brands.length ? (
+      {allProps.availability != "All" || allProps.brands.length ? (
         <button
           id="remove-all"
           className="remove-all-filters text-btn-uppercase"

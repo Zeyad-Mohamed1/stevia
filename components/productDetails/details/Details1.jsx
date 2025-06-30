@@ -1,8 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Slider1 from "../sliders/Slider1";
-import ColorSelect from "../ColorSelect";
-import SizeSelect from "../SizeSelect";
 import QuantitySelect from "../QuantitySelect";
 import Image from "next/image";
 import { useContextElement } from "@/context/Context";
@@ -14,16 +12,6 @@ import { useUserStore } from "@/store/userStore";
 import { useRouter } from "@/i18n/navigation";
 
 export default function Details1({ product, locale = "en" }) {
-  // Initialize colors and sizes with proper fallbacks
-  const availableColors = product?.colors || [];
-  const availableSizes = product?.sizes || [];
-
-  const [activeColor, setActiveColor] = useState(
-    availableColors.length > 0 ? availableColors[0]?.color : null
-  );
-  const [activeSize, setActiveSize] = useState(
-    availableSizes.length > 0 ? availableSizes[0]?.size : null
-  );
   const [quantity, setQuantity] = useState(1);
 
   const {
@@ -37,20 +25,6 @@ export default function Details1({ product, locale = "en" }) {
   const { user } = useUserStore();
   const router = useRouter();
   const isRtl = isRTL(locale);
-
-  // Update activeColor when product changes
-  useEffect(() => {
-    if (availableColors.length > 0 && !activeColor) {
-      setActiveColor(availableColors[0]?.color);
-    }
-  }, [product?.id, availableColors]);
-
-  // Update activeSize when product changes
-  useEffect(() => {
-    if (availableSizes.length > 0 && !activeSize) {
-      setActiveSize(availableSizes[0]?.size);
-    }
-  }, [product?.id, availableSizes]);
 
   const { mutate: updateFavorite, isPending: isUpdatingFavorite } = useMutation(
     {
@@ -91,40 +65,6 @@ export default function Details1({ product, locale = "en" }) {
     }
   };
 
-  // Helper function to normalize color and size data for cart
-  const normalizeCartData = (selectedColor, selectedSize) => {
-    let normalizedColor = null;
-    let normalizedSize = null;
-
-    // Normalize color data
-    if (selectedColor) {
-      if (typeof selectedColor === "string") {
-        normalizedColor = selectedColor;
-      } else if (selectedColor.color) {
-        normalizedColor = selectedColor.color;
-      } else if (selectedColor.name) {
-        normalizedColor = selectedColor.name;
-      } else if (selectedColor.value) {
-        normalizedColor = selectedColor.value;
-      }
-    }
-
-    // Normalize size data
-    if (selectedSize) {
-      if (typeof selectedSize === "string") {
-        normalizedSize = selectedSize;
-      } else if (selectedSize.size) {
-        normalizedSize = selectedSize.size;
-      } else if (selectedSize.name) {
-        normalizedSize = selectedSize.name;
-      } else if (selectedSize.value) {
-        normalizedSize = selectedSize.value;
-      }
-    }
-
-    return { normalizedColor, normalizedSize };
-  };
-
   console.log("product", product);
 
   return (
@@ -135,13 +75,7 @@ export default function Details1({ product, locale = "en" }) {
             {/* Product default */}
             <div className="col-md-6">
               <div className="tf-product-media-wrap sticky-top">
-                <Slider1
-                  setActiveColor={setActiveColor}
-                  activeColor={activeColor}
-                  firstItem={product.image_path}
-                  media={product.media}
-                  colors={availableColors}
-                />
+                <Slider1 firstItem={product.image_path} media={product.media} />
               </div>
             </div>
             {/* tf-product-info-list */}
@@ -240,22 +174,6 @@ export default function Details1({ product, locale = "en" }) {
                     </div>
                   </div>
                   <div className="tf-product-info-choose-option">
-                    {availableColors.length > 0 && (
-                      <ColorSelect
-                        setActiveColor={setActiveColor}
-                        activeColor={activeColor}
-                        colors={availableColors}
-                        locale={locale}
-                      />
-                    )}
-                    {availableSizes.length > 0 && (
-                      <SizeSelect
-                        sizes={availableSizes}
-                        locale={locale}
-                        setActiveSize={setActiveSize}
-                        activeSize={activeSize}
-                      />
-                    )}
                     <div className="tf-product-info-quantity">
                       <div className="title mb_12">
                         {getTranslation("quantity", locale)}:
@@ -281,29 +199,13 @@ export default function Details1({ product, locale = "en" }) {
                       <div className="tf-product-info-by-btn mb_10">
                         <a
                           onClick={() => {
-                            // Get the current selected color and size
-                            const finalColor =
-                              activeColor ||
-                              (availableColors.length > 0
-                                ? availableColors[0]?.color
-                                : null);
-                            const finalSize =
-                              activeSize ||
-                              (availableSizes.length > 0
-                                ? availableSizes[0]?.size
-                                : null);
-
-                            // Normalize the data for cart storage
-                            const { normalizedColor, normalizedSize } =
-                              normalizeCartData(finalColor, finalSize);
-
                             // Calculate the final price after discount
                             const finalPrice =
                               product.discount > 0
                                 ? product.price * (1 - product.discount / 100)
                                 : product.price;
 
-                            // Create a complete product object for the cart with selected variants
+                            // Create a complete product object for the cart with weight
                             const productForCart = {
                               id: product.id,
                               name: product.name,
@@ -314,22 +216,12 @@ export default function Details1({ product, locale = "en" }) {
                               originalPrice: product.price,
                               discount: product.discount,
                               category: product.category,
-                              selectedColor: normalizedColor,
-                              selectedSize: normalizedSize,
+                              weight: product.weight,
                               quantity: quantity,
-                              // Add unique cart ID to handle same product with different variants
-                              cartId: `${product.id}-${
-                                normalizedColor || "default"
-                              }-${normalizedSize || "default"}`,
+                              cartId: `${product.id}`,
                             };
 
-                            addProductToCart(
-                              productForCart,
-                              quantity,
-                              true,
-                              normalizedColor,
-                              normalizedSize
-                            );
+                            addProductToCart(productForCart, quantity, true);
                           }}
                           className="btn-style-2 flex-grow-1 text-btn-uppercase fw-6 btn-add-to-cart"
                         >

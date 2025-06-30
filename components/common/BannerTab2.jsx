@@ -122,7 +122,7 @@ export default function BannerTab2({ parentClass = "flat-spacing pt-0" }) {
               </ul>
               <div className="wow fadeInUp">
                 <Link href={`/collections`} className="btn-line">
-                  View All Collection
+                  {locale === "ar" ? "عرض الكل" : "View All Collection"}
                 </Link>
               </div>
             </div>

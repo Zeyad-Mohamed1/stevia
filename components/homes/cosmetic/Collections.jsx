@@ -80,7 +80,7 @@ export default function Collections() {
               key={category.id}
             >
               <Link
-                href={`/collections/${category.id}-${category.name}`}
+                href={`/products/${category.id}-${category.name}`}
                 className="img-style"
               >
                 <Image

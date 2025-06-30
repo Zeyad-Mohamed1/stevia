@@ -9,7 +9,7 @@ import FilterModal from "./FilterModal";
 import { initialState, reducer } from "@/reducer/filterReducer";
 import FilterMeta from "./FilterMeta";
 import { useQuery } from "@tanstack/react-query";
-import { getProducts } from "@/actions/products";
+import { getBrandProducts } from "@/actions/products";
 import { useLocale, useTranslations } from "next-intl";
 import { getSubCafesProducts } from "@/actions/categories";
 
@@ -18,6 +18,13 @@ const transformApiProduct = (apiProduct, currentLocale = "en") => {
   const translation =
     apiProduct.translations?.find((t) => t.locale === currentLocale) ||
     apiProduct.translations?.[0];
+
+  // Get brand name from cafe translations (since type is "brand")
+  const brandTranslation =
+    apiProduct.cafe?.translations?.find((t) => t.locale === currentLocale) ||
+    apiProduct.cafe?.translations?.[0];
+
+  const brandName = brandTranslation?.name || apiProduct.cafe?.name || "";
 
   return {
     id: apiProduct.id,
@@ -32,15 +39,16 @@ const transformApiProduct = (apiProduct, currentLocale = "en") => {
     isOnSale: apiProduct.discount > 0,
     discount: apiProduct.discount,
     inStock: apiProduct.is_available === 1,
-    weight: apiProduct.weight || "",
-    category: apiProduct.category,
+    weight: translation?.weight || apiProduct.weight || "",
+    category: apiProduct.category || apiProduct.cafe,
     description: translation?.description || apiProduct.description,
+    brand: brandName,
     // Additional fields for filtering
-    filterBrands: apiProduct.brand ? [apiProduct.brand] : [],
+    filterBrands: brandName ? [brandName] : [],
   };
 };
 
-export default function Products1({
+export default function BrandProducts({
   parentClass = "flat-spacing",
   subCategoryId = null,
 }) {
@@ -53,8 +61,8 @@ export default function Products1({
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["products", page],
-    queryFn: () => getProducts(page),
+    queryKey: ["brandProducts", page],
+    queryFn: () => getBrandProducts(page),
     enabled: !subCategoryId,
   });
 
@@ -235,11 +243,6 @@ export default function Products1({
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
-
-  console.log(
-    "products",
-    products.map((p) => p.title)
-  );
 
   if (currentLoading) {
     return (

@@ -143,17 +143,7 @@ export default function ProductCard12({ product, gridClass = "" }) {
             <span className="on-sale-item">-{product.salePercentage}</span>
           </div>
         )}
-        {product.sizes && (
-          <div className="variant-wrap size-list">
-            <ul className="variant-box">
-              {product.sizes.map((size) => (
-                <li key={size} className="size-item">
-                  {size}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+
         {product.countdown && (
           <div className="variant-wrap countdown-wrap">
             <div className="variant-box">
@@ -222,27 +212,11 @@ export default function ProductCard12({ product, gridClass = "" }) {
           )}{" "}
           ${product.price?.toFixed(2)}
         </span>
-        {product.colors && (
-          <ul className="list-color-product">
-            {product.colors.map((color, index) => (
-              <li
-                key={index}
-                className={`list-color-item color-swatch ${
-                  currentImage == color.imgSrc ? "active" : ""
-                }  ${color.bgColor == "bg-white" ? "line" : ""}`}
-                onMouseOver={() => setCurrentImage(color.imgSrc)}
-              >
-                <span className={`swatch-value ${color.bgColor}`} />
-                <Image
-                  className="lazyload"
-                  src={color.imgSrc}
-                  alt="color variant"
-                  width={600}
-                  height={800}
-                />
-              </li>
-            ))}
-          </ul>
+        {product.weight && (
+          <div className="product-weight mt-2">
+            <span className="weight-label text-secondary-2">Weight: </span>
+            <span className="weight-value">{product.weight}</span>
+          </div>
         )}
         <a
           className="btn-main-product"

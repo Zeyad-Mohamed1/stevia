@@ -20,13 +20,23 @@ export default function Products5() {
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
 
+  console.log(products);
+
   // Transform API data to match ProductCard1 expected format
   const transformProduct = (product) => {
     return {
       id: product.id,
       title: product.name,
-      imgSrc: product.image_path,
-      imgHover: product.image_path, // No longer using color hover images
+      imgSrc:
+        product.media && product.media[0]
+          ? product.media[0].image_path
+          : product.image_path,
+      imgHover:
+        product.media && product.media[1]
+          ? product.media[1].image_path
+          : product.media && product.media[0]
+          ? product.media[0].image_path
+          : product.image_path,
       price: product.price,
       discount: product.discount,
       isOnSale: product.discount > 0,

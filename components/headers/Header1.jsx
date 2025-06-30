@@ -4,13 +4,14 @@ import React, { useEffect } from "react";
 import Nav from "./Nav";
 import Image from "next/image";
 import { Link, useRouter } from "@/i18n/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import CartLength from "../common/CartLength";
 import { useUserStore } from "@/store/userStore";
 import { logout } from "@/actions/auth";
 import LanguageSelect from "../common/LanguageSelect";
 
 export default function Header1({ fullWidth = false }) {
+  const locale = useLocale();
   const { user, fetchUser, clearUser } = useUserStore();
   const t = useTranslations("header");
   const router = useRouter();
@@ -47,7 +48,11 @@ export default function Header1({ fullWidth = false }) {
               <Image
                 alt="logo"
                 className="logo"
-                src="/images/logo/logo.png"
+                src={
+                  locale === "en"
+                    ? "/images/logo/logo-en.png"
+                    : "/images/logo/logo.png"
+                }
                 width={100}
                 height={100}
               />

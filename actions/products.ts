@@ -35,3 +35,8 @@ export async function searchProducts(name: string) {
   const response = await postFormData(`/items/find`, formData);
   return response;
 }
+
+export async function getBrandProducts(page: number = 1) {
+  const response = await get(`/brand-items?page=${page}`);
+  return response;
+}

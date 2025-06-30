@@ -20,7 +20,7 @@ export default function Breadcumb({ product, locale = "en" }) {
             <i className={`icon ${isRtl ? "icon-arrLeft" : "icon-arrRight"}`} />
             <span className="text text-caption-1">{product.name}</span>
           </div>
-          <div className="tf-breadcrumb-prev-next">
+          {/* <div className="tf-breadcrumb-prev-next">
             <Link
               href={`/${locale}/product-detail/${
                 product.id <= 1 ? 1 : product.id - 1
@@ -40,7 +40,7 @@ export default function Breadcumb({ product, locale = "en" }) {
             >
               <i className="icon icon-arrRight" />
             </Link>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
