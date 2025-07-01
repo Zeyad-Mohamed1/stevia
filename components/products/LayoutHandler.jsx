@@ -25,11 +25,11 @@ export default function LayoutHandler({
 
   return (
     <>
-      <li
+      {/* <li
         className={`tf-view-layout-switch sw-layout-list list-layout ${
           activeLayout == 1 ? "active" : ""
         }`}
-        onClick={() => setActiveLayout(1)}
+        // onClick={() => setActiveLayout(1)}
         data-value-layout="list"
       >
         <div className="item">
@@ -66,7 +66,7 @@ export default function LayoutHandler({
         className={`tf-view-layout-switch sw-layout-2 ${
           activeLayout == 2 ? "active" : ""
         }`}
-        onClick={() => setActiveLayout(2)}
+        // onClick={() => setActiveLayout(2)}
         data-value-layout="tf-col-2"
       >
         <div className="item">
@@ -89,7 +89,7 @@ export default function LayoutHandler({
         className={`tf-view-layout-switch sw-layout-3 ${
           activeLayout == 3 ? "active" : ""
         }`}
-        onClick={() => setActiveLayout(3)}
+        // onClick={() => setActiveLayout(3)}
         data-value-layout="tf-col-3"
       >
         <div className="item">
@@ -114,7 +114,7 @@ export default function LayoutHandler({
         className={`tf-view-layout-switch sw-layout-4 ${
           activeLayout == 4 ? "active" : ""
         }`}
-        onClick={() => setActiveLayout(4)}
+        // onClick={() => setActiveLayout(4)}
         data-value-layout="tf-col-4"
       >
         <div className="item">
@@ -136,13 +136,13 @@ export default function LayoutHandler({
             <circle cx={27} cy={14} r="2.5" stroke="#181818" />
           </svg>
         </div>
-      </li>
-      {!hasSidebar ? (
+      </li> */}
+      {/* {!hasSidebar ? (
         <li
           className={`tf-view-layout-switch sw-layout-5 ${
             activeLayout == 5 ? "active" : ""
           }`}
-          onClick={() => setActiveLayout(5)}
+          //  onClick={() => setActiveLayout(5)}
           data-value-layout="tf-col-5"
         >
           <div className="item">
@@ -169,7 +169,7 @@ export default function LayoutHandler({
         </li>
       ) : (
         ""
-      )}
+      )} */}
     </>
   );
 }

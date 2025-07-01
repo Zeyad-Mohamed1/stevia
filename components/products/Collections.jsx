@@ -128,7 +128,7 @@ export default function Collections({ categoryId }) {
                     className="collection-position-2 radius-lg style-3 hover-img"
                   >
                     <Link
-                      href={`/collections/${category.id}-${category.name}`}
+                      href={`/products/${category.id}-${category.name}`}
                       className="img-style"
                     >
                       <Image
@@ -146,7 +146,7 @@ export default function Collections({ categoryId }) {
                     </Link>
                     <div className="content">
                       <Link
-                        href={`/collections/${category.id}-${category.name}`}
+                        href={`/products/${category.id}-${category.name}`}
                         className="cls-btn"
                       >
                         <h6 className="title-category">{currentName}</h6>

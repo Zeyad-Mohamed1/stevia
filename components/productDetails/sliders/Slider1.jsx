@@ -32,10 +32,10 @@ export default function Slider1({
     // Add media images
     if (media && media.length > 0) {
       media.forEach((mediaItem, index) => {
-        const mediaPath = `https://atlala.test.do-go.net/images/${mediaItem.image}`;
+        // const mediaPath = `https://atlala.test.do-go.net/images/${mediaItem.image}`;
         items.push({
           id: index + 2,
-          src: mediaPath,
+          src: mediaItem.image_path,
           alt: `Product Image ${index + 2}`,
           width: 713,
           height: 713,

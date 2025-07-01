@@ -277,7 +277,7 @@ export default function Products1({
     <>
       <section className={parentClass}>
         <div className="container">
-          <div className="tf-shop-control d-flex justify-content-between align-items-center">
+          <div className="tf-shop-control">
             {/* <div className="tf-control-filter">
               <a
                 href="#filterShop"
@@ -298,28 +298,25 @@ export default function Products1({
                 <p className="text-caption-1">{t("shopSaleOnly")}</p>
               </div>
             </div> */}
-            {/* <ul className="tf-control-layout">
+            <ul className="tf-control-layout">
               <LayoutHandler
                 setActiveLayout={setActiveLayout}
                 activeLayout={activeLayout}
               />
-            </ul> */}
+            </ul>
+            <div className="tf-control-sorting">
+              <p className="d-none d-lg-block text-caption-1">{t("sortBy")}</p>
+              <Sorting allProps={allProps} />
+            </div>
+          </div>
 
+          <div className="wrapper-control-shop">
             <FilterMeta
               productLength={paginationInfo?.total || 0}
               allProps={allProps}
               paginationInfo={paginationInfo}
             />
 
-            <div className="tf-control-sorting d-flex align-items-center">
-              <p className="d-none d-lg-block text-caption-1 me-3 mb-0">
-                {t("sortBy")}
-              </p>
-              <Sorting allProps={allProps} />
-            </div>
-          </div>
-
-          <div className="wrapper-control-shop">
             {activeLayout == 1 ? (
               <div className="tf-list-layout wrapper-shop" id="listLayout">
                 <Listview products={sorted} currentPage={page} />

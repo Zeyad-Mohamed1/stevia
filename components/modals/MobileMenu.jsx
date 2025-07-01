@@ -48,7 +48,7 @@ export default function MobileMenu() {
   const navItems = [
     { name: t("navigation.home"), href: "/" },
     { name: t("navigation.shop"), href: "/shop" },
-    { name: t("navigation.storeList"), href: "/store-list" },
+    { name: t("navigation.storeList"), href: "/our-brands" },
     { name: t("navigation.aboutUs"), href: "/about-us" },
     { name: t("navigation.contact"), href: "/contact" },
   ];

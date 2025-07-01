@@ -1,3 +1,5 @@
+"use client";
+import { useLocale } from "next-intl";
 import React from "react";
 
 export default function FilterMeta({
@@ -5,12 +7,17 @@ export default function FilterMeta({
   productLength,
   paginationInfo,
 }) {
+  const locale = useLocale();
   const getResultText = () => {
     if (paginationInfo) {
       const { from, to, total } = paginationInfo;
-      return `Showing ${from}-${to} of ${total} Products`;
+      return locale === "ar"
+        ? `معرض ${from}-${to} من ${total} منتجات`
+        : `Showing ${from}-${to} of ${total} Products`;
     }
-    return `${productLength} Products Found`;
+    return locale === "ar"
+      ? `${productLength} منتجات معروضة`
+      : `${productLength} Products Found`;
   };
 
   return (

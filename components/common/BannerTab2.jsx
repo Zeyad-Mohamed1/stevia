@@ -2,8 +2,6 @@
 import Image from "next/image";
 import React, { useEffect } from "react";
 import Link from "next/link";
-import { useContextElement } from "@/context/Context";
-import { products37 } from "@/data/products";
 import { useLocale } from "next-intl";
 import { getSlidersProducts } from "@/actions/slider";
 import { useQuery } from "@tanstack/react-query";
@@ -13,17 +11,16 @@ export default function BannerTab2({ parentClass = "flat-spacing pt-0" }) {
     queryKey: ["products37"],
     queryFn: getSlidersProducts,
   });
-  const { setQuickViewItem } = useContextElement();
   const locale = useLocale();
 
   // Use API data if available, fallback to static data
   const bannerData = data || {
     title: "Ready to Glow?",
     content: "",
-    items: products37,
+    items: [],
   };
   console.log(bannerData);
-  const displayItems = bannerData.items || products37;
+  const displayItems = bannerData.items || [];
   useEffect(() => {
     const offsetX = 20;
     const offsetY = 20;
@@ -39,6 +36,7 @@ export default function BannerTab2({ parentClass = "flat-spacing pt-0" }) {
     const handleMouseEnter = (e) => {
       const hoverImage = e.currentTarget.querySelector(".hover-image");
       if (hoverImage) {
+        hoverImage.style.display = "block";
         hoverImage.style.transform = "scale(1)";
         hoverImage.style.opacity = "1";
       }
@@ -49,11 +47,30 @@ export default function BannerTab2({ parentClass = "flat-spacing pt-0" }) {
       if (hoverImage) {
         hoverImage.style.transform = "scale(0)";
         hoverImage.style.opacity = "0";
+        // Add a small delay before hiding to allow smooth transition
+        setTimeout(() => {
+          if (hoverImage.style.opacity === "0") {
+            hoverImage.style.display = "none";
+          }
+        }, 300); // Match the CSS transition duration
       }
     };
 
     const elements = document.querySelectorAll(".hover-cursor-img");
+
+    // Initialize hover images with proper initial state
     elements.forEach((el) => {
+      const hoverImage = el.querySelector(".hover-image");
+      if (hoverImage) {
+        hoverImage.style.position = "fixed";
+        hoverImage.style.transform = "scale(0)";
+        hoverImage.style.opacity = "0";
+        hoverImage.style.display = "none";
+        hoverImage.style.pointerEvents = "none";
+        hoverImage.style.transition = "transform 0.3s ease, opacity 0.3s ease";
+        hoverImage.style.zIndex = "1000";
+      }
+
       el.addEventListener("mousemove", handleMouseMove);
       el.addEventListener("mouseenter", handleMouseEnter);
       el.addEventListener("mouseleave", handleMouseLeave);
@@ -66,7 +83,7 @@ export default function BannerTab2({ parentClass = "flat-spacing pt-0" }) {
         el.removeEventListener("mouseleave", handleMouseLeave);
       });
     };
-  }, []);
+  }, [displayItems]);
   return (
     <section className={parentClass}>
       <div className="container">

@@ -41,7 +41,7 @@ export default function Categories() {
 
     // Navigate after a small delay to ensure modal is closed
     setTimeout(() => {
-      router.push(`/collections/${category?.id}-${category?.name}`);
+      router.push(`/products/${category?.id}-${category?.name}`);
     }, 100);
   };
 
