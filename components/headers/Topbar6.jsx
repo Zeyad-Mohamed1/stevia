@@ -53,7 +53,7 @@ export default function Topbar6({ bgColor = "bg-blue-2" }) {
             <li>
               <Link
                 className="text-caption-1 text-white text-decoration-underline"
-                href="/store-list"
+                href="/our-brands"
               >
                 {t("ourStore")}
               </Link>

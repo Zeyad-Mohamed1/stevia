@@ -276,11 +276,7 @@ export default function Details1({ product, locale = "en" }) {
                     </div>
                     <div className="tf-product-info-help">
                       <div className="tf-product-info-extra-link">
-                        <a
-                          href="#delivery_return"
-                          data-bs-toggle="modal"
-                          className="tf-product-extra-icon"
-                        >
+                        <a className="tf-product-extra-icon">
                           <div className="icon">
                             <i className="icon-shipping" />
                           </div>
@@ -323,9 +319,9 @@ export default function Details1({ product, locale = "en" }) {
                           <span>
                             {getTranslation("internationalDays", locale)}
                           </span>
-                          ({getTranslation("international", locale)}),{" "}
-                          <span>{getTranslation("domesticDays", locale)}</span>{" "}
-                          ({getTranslation("unitedStates", locale)})
+                          {/* ({getTranslation("international", locale)}),{" "} */}
+                          {/* <span>{getTranslation("domesticDays", locale)}</span>{" "} */}
+                          {/* ({getTranslation("unitedStates", locale)}) */}
                         </p>
                       </div>
                       <div className="tf-product-info-return">
@@ -338,7 +334,7 @@ export default function Details1({ product, locale = "en" }) {
                           {getTranslation("returnPolicyDesc", locale)}
                         </p>
                       </div>
-                      <div className="dropdown dropdown-store-location">
+                      {/* <div className="dropdown dropdown-store-location">
                         <div
                           className="dropdown-title dropdown-backdrop"
                           data-bs-toggle="dropdown"
@@ -370,7 +366,7 @@ export default function Details1({ product, locale = "en" }) {
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                     {/* <ul className="tf-product-info-sku">
                       <li>

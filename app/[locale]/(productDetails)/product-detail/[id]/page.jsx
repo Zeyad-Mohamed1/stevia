@@ -53,6 +53,12 @@ const getLocalizedProduct = (product, locale) => {
           ),
         }
       : null,
+    imgHover:
+      product.media && product.media[1]
+        ? product.media[1].image_path
+        : product.media && product.media[0]
+        ? product.media[0].image_path
+        : product.image_path,
   };
 };
 

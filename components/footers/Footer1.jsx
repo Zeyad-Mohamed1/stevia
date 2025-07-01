@@ -265,6 +265,17 @@ export default function Footer1({
                       <p className="text-caption-1">
                         ©{new Date().getFullYear()} {t("footer.copyright")}
                       </p>
+                      <p className="text-caption-1">
+                        {t("footer.designDevelopment")} ©{" "}
+                        <a
+                          href="https://bluebrain-co.com/ar"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-main hover:underline"
+                        >
+                          {t("footer.bluebrain")}
+                        </a>
+                      </p>
                       <div className="tf-cur justify-content-end">
                         <div className="tf-currencies">
                           {/* <CurrencySelect light={dark ? true : false} /> */}

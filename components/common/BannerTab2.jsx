@@ -84,6 +84,9 @@ export default function BannerTab2({ parentClass = "flat-spacing pt-0" }) {
       });
     };
   }, [displayItems]);
+
+  console.log(displayItems);
+
   return (
     <section className={parentClass}>
       <div className="container">
@@ -174,7 +177,9 @@ export default function BannerTab2({ parentClass = "flat-spacing pt-0" }) {
                           width={710}
                           height={945}
                         />
-                        {item?.discount && (
+                        {Boolean(
+                          item?.discount && Number(item.discount) > 0
+                        ) && (
                           <div className="on-sale-wrap">
                             <span className="on-sale-item">
                               {item.discount}%
@@ -191,13 +196,13 @@ export default function BannerTab2({ parentClass = "flat-spacing pt-0" }) {
                             {item?.title || item?.name || `Product ${item?.id}`}
                           </Link>
                           <div className="price">
-                            {item?.oldPrice && (
+                            {/* {item?.oldPrice && (
                               <span className="old-price">
                                 {locale === "ar"
                                   ? `ج.م ${item.oldPrice.toFixed(2)}`
                                   : `EGP ${item.oldPrice.toFixed(2)}`}
                               </span>
-                            )}
+                            )} */}
                             <span className="new-price">
                               {locale === "ar"
                                 ? `ج.م ${item?.price?.toFixed(2)}`

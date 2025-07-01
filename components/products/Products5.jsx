@@ -25,10 +25,7 @@ export default function Products5() {
     return {
       id: product.id,
       title: product.name,
-      imgSrc:
-        product.media && product.media[0]
-          ? product.media[0].image_path
-          : product.image_path,
+      imgSrc: product.image_path,
       imgHover:
         product.media && product.media[1]
           ? product.media[1].image_path

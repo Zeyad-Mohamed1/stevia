@@ -89,9 +89,9 @@ export default function RelatedProducts({
                         />
                         <Image
                           className="lazyload img-hover"
-                          data-src={product.image_path}
+                          data-src={product.imgHover}
                           alt={product.name}
-                          src={product.image_path}
+                          src={product.imgHover}
                           width={360}
                           height={360}
                         />

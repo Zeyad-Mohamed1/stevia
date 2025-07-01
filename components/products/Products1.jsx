@@ -23,7 +23,12 @@ const transformApiProduct = (apiProduct, currentLocale = "en") => {
     id: apiProduct.id,
     title: translation?.name || apiProduct.name,
     imgSrc: apiProduct.image_path,
-    imgHover: apiProduct.image_path, // Remove color-based hover images
+    imgHover:
+      apiProduct.media && apiProduct.media[1]
+        ? apiProduct.media[1].image_path
+        : apiProduct.media && apiProduct.media[0]
+        ? apiProduct.media[0].image_path
+        : apiProduct.image_path, // Remove color-based hover images
     price: apiProduct.price,
     oldPrice:
       apiProduct.discount > 0
