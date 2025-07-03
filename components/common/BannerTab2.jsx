@@ -160,7 +160,10 @@ export default function BannerTab2({ parentClass = "flat-spacing pt-0" }) {
                     role="tabpanel"
                   >
                     <div className="collection-position-2 hover-img">
-                      <a className="img-style">
+                      <Link
+                        href={`/product-detail/${item?.id}`}
+                        className="img-style"
+                      >
                         <Image
                           className="lazyload"
                           data-src={
@@ -186,7 +189,7 @@ export default function BannerTab2({ parentClass = "flat-spacing pt-0" }) {
                             </span>
                           </div>
                         )}
-                      </a>
+                      </Link>
                       <div className="content cls-content">
                         <div className="cls-info">
                           <Link

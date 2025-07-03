@@ -54,14 +54,10 @@ export default function Contact2() {
 
     try {
       const response = await sendContact(contactData);
-      if (response.success) {
-        setSuccess(true);
-        handleShowMessage();
-        resetForm();
-      } else {
-        setSuccess(false);
-        handleShowMessage();
-      }
+      console.log("response from contact", response);
+      setSuccess(true);
+      resetForm();
+      handleShowMessage();
     } catch (error) {
       console.error("Error sending contact:", error);
       setSuccess(false);
@@ -121,12 +117,12 @@ export default function Contact2() {
                   showMessage ? "active" : ""
                 }`}
               >
-                {success ? (
-                  <p style={{ color: "rgb(52, 168, 83)" }}>
-                    {t("messageSentSuccess")}
+                {success && (
+                  <p>
+                    {locale === "ar"
+                      ? "تم الارسال بنجاح"
+                      : "Message sent successfully"}
                   </p>
-                ) : (
-                  <p style={{ color: "red" }}>{t("somethingWentWrong")}</p>
                 )}
               </div>
               <form

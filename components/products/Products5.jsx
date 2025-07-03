@@ -20,6 +20,8 @@ export default function Products5() {
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
 
+  console.log(products);
+
   // Transform API data to match ProductCard1 expected format
   const transformProduct = (product) => {
     return {

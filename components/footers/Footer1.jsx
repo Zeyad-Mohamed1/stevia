@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import LanguageSelect from "../common/LanguageSelect";
 import ToolbarBottom from "../headers/ToolbarBottom";
 import ScrollTop from "../common/ScrollTop";
@@ -15,6 +15,7 @@ export default function Footer1({
   dark = false,
   hasPaddingBottom = false,
 }) {
+  const locale = useLocale();
   const {
     data: socialLinks,
     isLoading: socialLinksLoading,
@@ -104,9 +105,9 @@ export default function Footer1({
                         <Image
                           alt=""
                           src={
-                            dark
-                              ? "/images/logo/logo.png"
-                              : "/images/logo/logo.png"
+                            locale === "ar"
+                              ? `/images/logo/logo.png`
+                              : `/images/logo/logo-${locale}.png`
                           }
                           width={100}
                           height={100}
