@@ -11,7 +11,6 @@ export default function Banner() {
     queryKey: ["sliders-categories"],
     queryFn: getSlidersCategories,
   });
-
   // Get the first slider item or use fallback data
   const bannerData = slidersCategories?.[0] || {};
 
