@@ -241,11 +241,6 @@ export default function Products1({
     }
   };
 
-  console.log(
-    "products",
-    products.map((p) => p.title)
-  );
-
   if (currentLoading) {
     return (
       <section className={parentClass}>

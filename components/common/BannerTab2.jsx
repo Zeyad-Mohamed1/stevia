@@ -19,7 +19,6 @@ export default function BannerTab2({ parentClass = "flat-spacing pt-0" }) {
     content: "",
     items: [],
   };
-  console.log(bannerData);
   const displayItems = bannerData.items || [];
   useEffect(() => {
     const offsetX = 20;
@@ -84,8 +83,6 @@ export default function BannerTab2({ parentClass = "flat-spacing pt-0" }) {
       });
     };
   }, [displayItems]);
-
-  console.log(displayItems);
 
   return (
     <section className={parentClass}>

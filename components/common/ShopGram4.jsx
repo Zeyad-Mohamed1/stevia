@@ -18,8 +18,6 @@ export default function ShopGram4() {
     queryFn: () => getImages(),
   });
 
-  console.log(images);
-
   if (isLoading) {
     return (
       <section>

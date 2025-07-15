@@ -211,11 +211,6 @@ export default function Context({ children }) {
       if (user !== null) {
         // User is authenticated - use API and update local state
         const weightValue = normalizedItem.weight || "";
-        console.log("Adding to cart:", {
-          productId,
-          qty: qty || 1,
-          weight: weightValue,
-        });
         await addToCart(productId, qty || 1, weightValue);
         setCartProducts((pre) => [...pre, normalizedItem]);
       } else {

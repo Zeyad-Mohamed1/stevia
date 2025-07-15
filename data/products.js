@@ -5094,5 +5094,3 @@ const returnLastid = () => {
   });
   return id;
 };
-
-console.log(returnLastid());

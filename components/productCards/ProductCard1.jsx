@@ -31,18 +31,14 @@ export default function ProductCard1({
   const { user } = useUserStore();
   const router = useRouter();
 
-  console.log("User state:", user);
-  console.log("Product ID:", product?.id);
   const { mutate: updateFavorite, isPending: isUpdatingFavorite } = useMutation(
     {
       mutationFn: (productId) => updateFavorites(productId),
       onSuccess: (response) => {
-        console.log("Favorite update response:", response);
         // Check if the response indicates success
         if (response?.status === "success" || response?.message === "success") {
           // Optionally refetch favorites after successful update
           queryClient.invalidateQueries(["favorites"]);
-          console.log("Successfully updated favorites");
         } else {
           console.error("Favorite update failed:", response);
           alert(
@@ -118,7 +114,6 @@ export default function ProductCard1({
         fav.id === productId || fav.productId === productId || fav === productId
     );
 
-    console.log(`Product ${productId} in favorites:`, isInFavorites, favorites);
     return isInFavorites;
   };
 
@@ -132,7 +127,6 @@ export default function ProductCard1({
     }
 
     if (!isUpdatingFavorite) {
-      console.log("Updating favorite for product:", product.id);
       updateFavorite(product.id);
     }
   };

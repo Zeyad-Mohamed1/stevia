@@ -54,7 +54,6 @@ export default function Contact2() {
 
     try {
       const response = await sendContact(contactData);
-      console.log("response from contact", response);
       setSuccess(true);
       resetForm();
       handleShowMessage();

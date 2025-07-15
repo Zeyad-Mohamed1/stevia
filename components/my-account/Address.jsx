@@ -12,7 +12,6 @@ export default function Address() {
     queryKey: ["cities"],
     queryFn: () => getCities(),
   });
-  console.log(cities);
 
   // Create address mutation
   const createAddressMutation = useMutation({

@@ -51,8 +51,6 @@ export default function ShopCart() {
     }
   }, [cities]);
 
-  console.log("cartProducts", cartProducts);
-
   // useEffect(() => {
   //   document.querySelector(".progress-cart .value").style.width = "70%";
   // }, []);

@@ -12,7 +12,6 @@ export async function addToCart(
   qty: number,
   weight: string
 ) {
-  console.log("addToCart", productId, qty, weight);
   const formData = new FormData();
   formData.append("item_id", productId.toString());
   formData.append("qty", qty.toString());
@@ -121,7 +120,6 @@ export async function checkout({ address_id, notes }) {
   formData.append("type", "cod");
   formData.append("notes", notes);
   const response = await postFormData("/checkout", formData);
-  console.log("checkout", response);
   return response;
 }
 

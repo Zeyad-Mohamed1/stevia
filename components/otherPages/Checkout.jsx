@@ -324,6 +324,31 @@ export default function Checkout() {
                       {t("loginHere")}
                     </Link>
                   </div>
+                  <div
+                    className="member-benefits-notice"
+                    style={{
+                      backgroundColor: "#f5f5f5",
+                      border: "2px solid #333",
+                      borderRadius: "8px",
+                      padding: "20px",
+                      marginBottom: "25px",
+                      textAlign: "center",
+                    }}
+                  >
+                    <p
+                      className="mb-0"
+                      style={{
+                        color: "#333",
+                        fontSize: "16px",
+                        fontWeight: "600",
+                        lineHeight: "1.5",
+                      }}
+                    >
+                      {locale === "ar"
+                        ? "سجّل الآن ليتم حفظ عنوانك تلقائيًا، واستمتع بعروض خاصة للأعضاء فقط"
+                        : "Create an account to save your address and enjoy exclusive member offers."}
+                    </p>
+                  </div>
                   <form className="login-box" onSubmit={handleLoginSubmit}>
                     <div className="grid-2">
                       <input

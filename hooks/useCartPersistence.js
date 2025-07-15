@@ -9,8 +9,6 @@ export function useCartPersistence(cartProducts, setCartProducts) {
   const [isClient, setIsClient] = useState(false);
   const [hasInitialized, setHasInitialized] = useState(false);
 
-  console.log(user, isAuthenticated);
-
   // Ensure we're on the client side
   useEffect(() => {
     setIsClient(true);
@@ -21,7 +19,6 @@ export function useCartPersistence(cartProducts, setCartProducts) {
     if (!isClient) return;
 
     const { items } = cartStorage.loadCart();
-    console.log("Loading cart from storage:", items);
     if (items.length > 0 && cartProducts?.length === 0) {
       setCartProducts(items);
     }
@@ -41,18 +38,10 @@ export function useCartPersistence(cartProducts, setCartProducts) {
   const syncCartOnLogin = useCallback(async () => {
     // Only proceed if we're on client, initialized, and user is actually authenticated
     if (!isClient || !hasInitialized || !isAuthenticated || !user) {
-      console.log("Skipping sync - not ready:", {
-        isClient,
-        hasInitialized,
-        isAuthenticated,
-        hasUser: !!user,
-      });
       return;
     }
 
     try {
-      console.log("Starting automatic cart sync...");
-
       // Check both possible localStorage keys for cart items
       let localCartItems = [];
 
@@ -63,7 +52,6 @@ export function useCartPersistence(cartProducts, setCartProducts) {
           const oldItems = JSON.parse(oldCart);
           if (Array.isArray(oldItems) && oldItems.length > 0) {
             localCartItems = [...localCartItems, ...oldItems];
-            console.log("Found items in old cart storage:", oldItems.length);
           }
         } catch (error) {
           console.error("Error parsing old cart:", error);
@@ -76,7 +64,6 @@ export function useCartPersistence(cartProducts, setCartProducts) {
       const { items: newCartItems } = cartStorage.loadCart();
       if (newCartItems && newCartItems.length > 0) {
         localCartItems = [...localCartItems, ...newCartItems];
-        console.log("Found items in new cart storage:", newCartItems.length);
       }
 
       // Remove duplicates based on id
@@ -84,14 +71,11 @@ export function useCartPersistence(cartProducts, setCartProducts) {
         (item, index, self) => index === self.findIndex((i) => i.id === item.id)
       );
 
-      console.log("Total unique items to sync:", uniqueItems.length);
-
       if (uniqueItems.length === 0) {
         // No local cart, just load backend cart
         try {
           const backendCart = await getCart();
           setCartProducts(backendCart.items || []);
-          console.log("No local items, loaded backend cart");
         } catch (error) {
           console.error("Failed to load backend cart:", error);
         }
@@ -107,10 +91,6 @@ export function useCartPersistence(cartProducts, setCartProducts) {
         // Clear both localStorage keys after successful sync
         localStorage.removeItem("cart");
         cartStorage.clearCart();
-
-        console.log(
-          `Cart successfully synced: ${uniqueItems.length} items added to backend`
-        );
       } else {
         console.error("Cart sync failed, keeping local cart");
         // Keep local items in state if sync failed

@@ -65,8 +65,6 @@ export default function Details1({ product, locale = "en" }) {
     }
   };
 
-  console.log("product", product);
-
   return (
     <section className="flat-spacing" dir={isRtl ? "rtl" : "ltr"}>
       <div className="tf-main-product section-image-zoom">
@@ -154,6 +152,34 @@ export default function Details1({ product, locale = "en" }) {
                             </span>{" "}
                             <span className="weight-value">
                               {product.weight}
+                            </span>
+                          </p>
+                        </div>
+                      )}
+                      {product.serial_number && (
+                        <div className="tf-product-info-serial">
+                          <p className="text-caption-1">
+                            <span className="serial-label">
+                              {locale === "ar"
+                                ? "الرقم التسلسلي:"
+                                : "Serial Number:"}
+                            </span>{" "}
+                            <span className="serial-value">
+                              {product.serial_number}
+                            </span>
+                          </p>
+                        </div>
+                      )}
+                      {product.stock_number && (
+                        <div className="tf-product-info-stock">
+                          <p className="text-caption-1">
+                            <span className="stock-label">
+                              {locale === "ar"
+                                ? "رقم المخزون:"
+                                : "Stock Number:"}
+                            </span>{" "}
+                            <span className="stock-value">
+                              {product.stock_number}
                             </span>
                           </p>
                         </div>
