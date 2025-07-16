@@ -12,6 +12,8 @@ export default function Register() {
   const t = useTranslations("register");
   const [passwordType, setPasswordType] = useState("password");
   const [confirmPasswordType, setConfirmPasswordType] = useState("password");
+  const [passwordErrors, setPasswordErrors] = useState([]);
+  const [password, setPassword] = useState("");
   const { fetchUser, user } = useUserStore();
 
   const togglePassword = () => {
@@ -26,12 +28,54 @@ export default function Register() {
     );
   };
 
+  const validatePassword = (password) => {
+    const errors = [];
+
+    if (password.length < 8) {
+      errors.push(t("passwordTooShort"));
+    }
+
+    if (!/[A-Z]/.test(password)) {
+      errors.push(t("passwordNoUppercase"));
+    }
+
+    if (!/[a-z]/.test(password)) {
+      errors.push(t("passwordNoLowercase"));
+    }
+
+    if (!/[0-9]/.test(password)) {
+      errors.push(t("passwordNoNumber"));
+    }
+
+    if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
+      errors.push(t("passwordNoSpecialChar"));
+    }
+
+    return errors;
+  };
+
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    const errors = validatePassword(newPassword);
+    setPasswordErrors(errors);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
+    const password = formData.get("password");
+    const confirmPassword = formData.get("confirmPassword");
+
+    // Validate password requirements
+    const passwordValidationErrors = validatePassword(password);
+    if (passwordValidationErrors.length > 0) {
+      passwordValidationErrors.forEach((error) => toast.error(error));
+      return;
+    }
 
     // Check if passwords match
-    if (formData.get("password") !== formData.get("confirmPassword")) {
+    if (password !== confirmPassword) {
       toast.error(t("passwordsDoNotMatch"));
       return;
     }
@@ -122,7 +166,8 @@ export default function Register() {
                     placeholder={t("password")}
                     name="password"
                     tabIndex={5}
-                    defaultValue=""
+                    value={password}
+                    onChange={handlePasswordChange}
                     aria-required="true"
                     required
                   />
@@ -139,6 +184,20 @@ export default function Register() {
                     />
                   </span>
                 </fieldset>
+                {passwordErrors.length > 0 && (
+                  <div className="password-requirements mt-2">
+                    <small className="text-danger">
+                      <strong>{t("passwordRequirements")}</strong>
+                    </small>
+                    <ul className="mt-1 mb-0 ps-3">
+                      {passwordErrors.map((error, index) => (
+                        <li key={index} className="text-danger small">
+                          {error}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
 
                 <fieldset className="position-relative password-item">
                   <input
