@@ -188,7 +188,7 @@ export default function CartModal() {
                     ) : (
                       <div className="p-4">
                         {t("cart.emptyMessage")}{" "}
-                        <Link className="btn-line" href="/shop-default-grid">
+                        <Link className="btn-line" href="/shop">
                           {t("cart.exploreProducts")}
                         </Link>
                       </div>
